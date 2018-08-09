@@ -1,14 +1,13 @@
 import React, { Component } from 'react';
 import { Platform, StyleSheet, Text, View } from 'react-native';
 import { withAuthenticator } from 'aws-amplify-react-native';
+import SeuShow from './src/App.js';
 
 type Props = {};
 class App extends Component<Props> {
   render() {
     return (
-      <View style={styles.container}>
-        <Text style={styles.welcome}>Bem-vindo ao Seu Show!</Text>
-      </View>
+      <SeuShow />
     );
   }
 }
