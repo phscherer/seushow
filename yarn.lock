@@ -2756,6 +2756,21 @@ fbjs-scripts@^0.8.1:
     semver "^5.1.0"
     through2 "^2.0.0"
 
+<<<<<<< HEAD
+fbjs@0.8.16:
+  version "0.8.16"
+  resolved "https://registry.yarnpkg.com/fbjs/-/fbjs-0.8.16.tgz#5e67432f550dc41b572bf55847b8aca64e5337db"
+  dependencies:
+    core-js "^1.0.0"
+    isomorphic-fetch "^2.1.1"
+    loose-envify "^1.0.0"
+    object-assign "^4.1.0"
+    promise "^7.1.1"
+    setimmediate "^1.0.5"
+    ua-parser-js "^0.7.9"
+
+=======
+>>>>>>> 65c756368950ef1ff641d21185e3ad435a10abe6
 fbjs@^0.8.0, fbjs@^0.8.14, fbjs@^0.8.16, fbjs@^0.8.9:
   version "0.8.17"
   resolved "https://registry.yarnpkg.com/fbjs/-/fbjs-0.8.17.tgz#c4d598ead6949112653d6588b01a5cdcd9f90fdd"
@@ -4181,10 +4196,13 @@ lodash@4.17.0:
   version "4.17.0"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.0.tgz#93f4466e5ab73e5a1f1216c34eea11535f0a8df5"
 
+<<<<<<< HEAD
+=======
 lodash@^3.5.0:
   version "3.10.1"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-3.10.1.tgz#5bf45e8e49ba4189e17d482789dfd15bd140b7b6"
 
+>>>>>>> 65c756368950ef1ff641d21185e3ad435a10abe6
 lodash@^4.0.0, lodash@^4.10.1, lodash@^4.11.1, lodash@^4.13.1, lodash@^4.17.10, lodash@^4.17.4, lodash@^4.17.5, lodash@^4.3.0, lodash@^4.6.1:
   version "4.17.10"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.10.tgz#1b7793cf7259ea38fb3661d4d38b3260af8ae4e7"
@@ -5210,6 +5228,15 @@ react-native-easy-grid@0.2.0:
   dependencies:
     lodash "^4.11.1"
 
+<<<<<<< HEAD
+react-native-fast-image@^4.0.14:
+  version "4.0.14"
+  resolved "https://registry.yarnpkg.com/react-native-fast-image/-/react-native-fast-image-4.0.14.tgz#1e84c9a01b1471793e294ef4e7c3cc20e09562a0"
+  dependencies:
+    prop-types "^15.5.10"
+
+=======
+>>>>>>> 65c756368950ef1ff641d21185e3ad435a10abe6
 react-native-iphone-x-helper@^1.0.1:
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/react-native-iphone-x-helper/-/react-native-iphone-x-helper-1.0.3.tgz#7a2f1e0574e899a0f1d426e6167fd98990083214"
@@ -5263,9 +5290,15 @@ react-native-vector-icons@4.6.0:
     prop-types "^15.5.10"
     yargs "^8.0.2"
 
+<<<<<<< HEAD
+react-native@0.56.0:
+  version "0.56.0"
+  resolved "https://registry.yarnpkg.com/react-native/-/react-native-0.56.0.tgz#66686f781ec39a44376aadd4bbc55c8573ab61e5"
+=======
 react-native@0.55.4:
   version "0.55.4"
   resolved "https://registry.yarnpkg.com/react-native/-/react-native-0.55.4.tgz#eecffada3750a928e2ddd07cf11d857ae9751c30"
+>>>>>>> 65c756368950ef1ff641d21185e3ad435a10abe6
   dependencies:
     absolute-path "^0.0.0"
     art "^0.10.0"
@@ -5349,7 +5382,11 @@ react-navigation-tabs@0.6.0:
     react-native-safe-area-view "^0.7.0"
     react-native-tab-view "^1.0.0"
 
+<<<<<<< HEAD
+react-navigation@^2.8.0:
+=======
 react-navigation@^2.11.2, react-navigation@^2.8.0:
+>>>>>>> 65c756368950ef1ff641d21185e3ad435a10abe6
   version "2.11.2"
   resolved "https://registry.yarnpkg.com/react-navigation/-/react-navigation-2.11.2.tgz#cd099f6d7d09efe48ef8463614a3abb113d45c01"
   dependencies:
@@ -5469,6 +5506,16 @@ realpath-native@^1.0.0:
 redux@^4.0.0:
   version "4.0.0"
   resolved "https://registry.yarnpkg.com/redux/-/redux-4.0.0.tgz#aa698a92b729315d22b34a0553d7e6533555cc03"
+<<<<<<< HEAD
+  dependencies:
+    loose-envify "^1.1.0"
+    symbol-observable "^1.2.0"
+
+regenerate-unicode-properties@^7.0.0:
+  version "7.0.0"
+  resolved "https://registry.yarnpkg.com/regenerate-unicode-properties/-/regenerate-unicode-properties-7.0.0.tgz#107405afcc4a190ec5ed450ecaa00ed0cafa7a4c"
+=======
+>>>>>>> 65c756368950ef1ff641d21185e3ad435a10abe6
   dependencies:
     loose-envify "^1.1.0"
     symbol-observable "^1.2.0"
