@@ -1,0 +1,1 @@
+export const DISCOVER_PATH = 'https://api.themoviedb.org/3/discover/';
