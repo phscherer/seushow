@@ -1,11 +1,29 @@
 import React from 'react';
 import { Router, Scene, Stack } from 'react-native-router-flux';
-import MoviesList from './components/moviesList';
+import MoviesList from './containers/moviesList';
+import { StackNavigator } from 'react-navigation';
+
+/*const MoviesNavigator = StackNavigator({
+  MoviesListPage: {
+    screen: MoviesList,
+    navigationOptions: {
+      visible: false,
+      header: null,
+      gesturesEnabled: false,
+    }
+  }
+});
+
+export const AppNavigator = StackNavigator({
+  MoviePage: { screen: MoviesNavigator },
+});
+
+export default { AppNavigator };*/
 
 export default props => (
   <Router>
     <Stack key="root">
-      <Scene key='moviesList' component={MoviesList} title="MoviesList" />
+      <Scene key='moviesList' component={MoviesList} title="Lista de Filmes" />
     </Stack>
   </Router>
 );
