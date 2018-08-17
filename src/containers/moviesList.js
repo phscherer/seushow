@@ -6,7 +6,7 @@ import {
   StyleSheet
 } from 'react-native';
 import { Text, Button } from 'native-base';
-import { ListItem } from 'react-native-elements';
+import { List, ListItem, SearchBar } from 'react-native-elements';
 import axios from 'axios';
 import { API_KEY, IMAGE_PATH } from '../actionTypes/app';
 import { DISCOVER_PATH } from '../actionTypes/movies';
@@ -14,6 +14,7 @@ import { DISCOVER_PATH } from '../actionTypes/movies';
 const styles = StyleSheet.create({
   item: {
     backgroundColor: "#ffffff",
+    borderBottomWidth: 0,
     margin: 1,
   },
   itemEmpty: {
@@ -37,19 +38,30 @@ class MoviesList extends Component {
       .catch(() => console.log('Error!'));
   }
 
+  renderSeparator = () => {
+    return (
+      <View
+        style={{
+          height: 1,
+          width: "86%",
+          backgroundColor: "#CED0CE",
+          marginLeft: "14%"
+        }}
+      />
+    );
+  }
+
   render() {
     const { movies } = this.state;
-    const columns = 1;
     return (
-      <SafeAreaView>
+      <List
+        containerStyle={{ borderTopWidth: 0, borderBottomWidth: 0 }}
+      >
         <FlatList
           data={movies.results}
-          numColumns={columns}
           keyExtractor={movie => movie.id}
+          ItemSeparatorComponent={this.renderSeparator}
           renderItem={(movie) => {
-            if (movie.empty) {
-              return <View style={[styles.item, styles.itemEmpty]} />;
-            }
             const uriImagePath = `${IMAGE_PATH}${movie.item.poster_path}`;
             return (
               <ListItem
@@ -62,7 +74,7 @@ class MoviesList extends Component {
             );
           }}
         />
-      </SafeAreaView>
+      </List>
     );
   }
 }
