@@ -1,40 +1,24 @@
 import React, { Component } from 'react';
-import {
-  View,
-  FlatList,
-  SafeAreaView,
-  StyleSheet
-} from 'react-native';
-import { Text, Button } from 'native-base';
-import { List, ListItem, SearchBar } from 'react-native-elements';
+import { View, FlatList, SafeAreaView, ActivityIndicator } from 'react-native';
+import { List } from 'react-native-elements';
 import axios from 'axios';
 import { API_KEY, IMAGE_PATH } from '../actionTypes/app';
 import { DISCOVER_PATH } from '../actionTypes/movies';
-
-const styles = StyleSheet.create({
-  item: {
-    backgroundColor: "#ffffff",
-    borderBottomWidth: 0,
-    margin: 1,
-  },
-  itemEmpty: {
-    backgroundColor: "transparent"
-  },
-  text: {
-    color: "#333333"
-  }
-});
+import MovieItem from '../components/moviesItem';
 
 class MoviesList extends Component {
   constructor(props) {
     super(props);
 
-    this.state = { movies: [] };
+    this.state = {
+      movies: [],
+      isLoading: true,
+    };
   }
 
   componentWillMount() {
     axios.get(`${DISCOVER_PATH}movie?sort_by=popularity.desc&api_key=${API_KEY}&language=pt-BR`)
-      .then((response) => { this.setState({ movies: response.data }); })
+      .then((response) => { this.setState({ movies: response.data, isLoading: false }); })
       .catch(() => console.log('Error!'));
   }
 
@@ -52,7 +36,14 @@ class MoviesList extends Component {
   }
 
   render() {
-    const { movies } = this.state;
+    const { movies, isLoading } = this.state;
+    if (isLoading) {
+      return (
+        <View style={{ flex: 1, padding: 20 }}>
+          <ActivityIndicator size="large" color="#0000ff" />
+        </View>
+      );
+    }
     return (
       <List
         containerStyle={{ borderTopWidth: 0, borderBottomWidth: 0 }}
@@ -61,18 +52,7 @@ class MoviesList extends Component {
           data={movies.results}
           keyExtractor={movie => movie.id}
           ItemSeparatorComponent={this.renderSeparator}
-          renderItem={(movie) => {
-            const uriImagePath = `${IMAGE_PATH}${movie.item.poster_path}`;
-            return (
-              <ListItem
-                roundAvatar
-                title={movie.item.title}
-                subtitle={movie.item.overview}
-                avatar={{ uri: uriImagePath }}
-                containerStyle={styles.item}
-              />
-            );
-          }}
+          renderItem={(movie) => <MovieItem movie={movie} /> }
         />
       </List>
     );

@@ -1,17 +1,26 @@
 import React, { Component } from 'react';
-import { createStore } from 'redux';
-import { Provider } from 'react-redux';
-import Routes from './Routes';
-import reducer from './reducers/index';
+import { createStackNavigator } from 'react-navigation';
 
-class SeuShow extends Component {
-  render() {
-    return (
-      <Provider store={createStore(reducer)}>
-        <Routes />
-      </Provider>
-    );
-  }
-}
+import MoviesList from './containers/moviesList';
 
-export default SeuShow;
+
+export default createStackNavigator(
+  {
+    MoviesList: {
+      screen: MoviesList,
+    },
+  },
+  {
+    initialRouteName: 'MoviesList',
+    navigationOptions: {
+      title: 'Em alta',
+      headerStyle: {
+        backgroundColor: '#D64545',
+      },
+      headerTintColor: '#fff',
+      headerTitleStyle: {
+        fontWeight: 'bold',
+      },
+    },
+  },
+);
