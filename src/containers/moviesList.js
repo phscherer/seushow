@@ -6,18 +6,15 @@ import {
   StyleSheet
 } from 'react-native';
 import { Text, Button } from 'native-base';
+import { ListItem } from 'react-native-elements';
 import axios from 'axios';
 import { API_KEY, IMAGE_PATH } from '../actionTypes/app';
 import { DISCOVER_PATH } from '../actionTypes/movies';
 
 const styles = StyleSheet.create({
   item: {
-    alignItems: "center",
-    backgroundColor: "#D3D3D3",
-    flexGrow: 1,
-    flexBasis: 0,
-    margin: 4,
-    padding: 20
+    backgroundColor: "#ffffff",
+    margin: 1,
   },
   itemEmpty: {
     backgroundColor: "transparent"
@@ -42,7 +39,7 @@ class MoviesList extends Component {
 
   render() {
     const { movies } = this.state;
-    const columns = 2;
+    const columns = 1;
     return (
       <SafeAreaView>
         <FlatList
@@ -53,10 +50,15 @@ class MoviesList extends Component {
             if (movie.empty) {
               return <View style={[styles.item, styles.itemEmpty]} />;
             }
+            const uriImagePath = `${IMAGE_PATH}${movie.item.poster_path}`;
             return (
-              <View style={styles.item}>
-                <Text style={styles.text}>{movie.item.title}</Text>
-              </View>
+              <ListItem
+                roundAvatar
+                title={movie.item.title}
+                subtitle={movie.item.overview}
+                avatar={{ uri: uriImagePath }}
+                containerStyle={styles.item}
+              />
             );
           }}
         />

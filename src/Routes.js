@@ -23,7 +23,7 @@ export default { AppNavigator };*/
 export default props => (
   <Router>
     <Stack key="root">
-      <Scene key='moviesList' component={MoviesList} title="Lista de Filmes" />
+      <Scene key='moviesList' component={MoviesList} title="Em alta" />
     </Stack>
   </Router>
 );
