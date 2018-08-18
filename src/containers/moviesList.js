@@ -45,7 +45,7 @@ class MoviesList extends Component {
       );
     }
     return (
-      <List
+      <View
         containerStyle={{ borderTopWidth: 0, borderBottomWidth: 0 }}
       >
         <FlatList
@@ -54,7 +54,7 @@ class MoviesList extends Component {
           ItemSeparatorComponent={this.renderSeparator}
           renderItem={(movie) => <MovieItem movie={movie} /> }
         />
-      </List>
+      </View>
     );
   }
 }
