@@ -2,12 +2,17 @@ import React, { Component } from 'react';
 import { createStackNavigator } from 'react-navigation';
 
 import MoviesList from './containers/moviesList';
-
+import MoviesDetails from './containers/moviesDetails';
 
 export default createStackNavigator(
   {
     MoviesList: {
       screen: MoviesList,
+      header: null,
+    },
+    MoviesDetails: {
+      screen: MoviesDetails,
+      header: null,
     },
   },
   {
@@ -15,7 +20,7 @@ export default createStackNavigator(
     navigationOptions: {
       title: 'Em alta',
       headerStyle: {
-        backgroundColor: '#D64545',
+        backgroundColor: '#AB3737',
       },
       headerTintColor: '#fff',
       headerTitleStyle: {

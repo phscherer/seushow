@@ -13,6 +13,7 @@ const styles = StyleSheet.create({
 });
 
 const MovieItem = ({ movie, navigation }) => {
+  const goToDetails = movieItem => navigation.navigate('MoviesDetails', { movieItem });
   const uriImagePath = `${IMAGE_PATH}${movie.item.poster_path}`;
   return (
     <ListItem
@@ -21,6 +22,7 @@ const MovieItem = ({ movie, navigation }) => {
       subtitle={movie.item.overview}
       avatar={{ uri: uriImagePath }}
       containerStyle={styles.item}
+      onPress={() => goToDetails(movie)}
     />
   );
 };

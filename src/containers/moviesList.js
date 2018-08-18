@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
-import { View, FlatList, SafeAreaView, ActivityIndicator } from 'react-native';
-import { List } from 'react-native-elements';
+import { View, FlatList, ActivityIndicator } from 'react-native';
 import axios from 'axios';
-import { API_KEY, IMAGE_PATH } from '../actionTypes/app';
+import { API_KEY } from '../actionTypes/app';
 import { DISCOVER_PATH } from '../actionTypes/movies';
 import MovieItem from '../components/moviesItem';
 
@@ -40,7 +39,7 @@ class MoviesList extends Component {
     if (isLoading) {
       return (
         <View style={{ flex: 1, padding: 20 }}>
-          <ActivityIndicator size="large" color="#0000ff" />
+          <ActivityIndicator size="large" color="#800020" />
         </View>
       );
     }
