@@ -1,14 +1,22 @@
 import React, { Component } from 'react';
-import { Text, Image, Dimensions, StyleSheet, View, ActivityIndicator } from 'react-native';
+import { Text, Image, Dimensions, StyleSheet, View, ActivityIndicator, ScrollView } from 'react-native';
 import ParallaxScrollView from 'react-native-parallax-scroll-view';
 
 import { IMAGE_PATH } from '../actionTypes/app';
+import CardItemBordered from '../components/cardItemBordered';
 
-const PARALLAX_HEADER_HEIGHT = 250;
+const PARALLAX_HEADER_HEIGHT = 315;
 const STICKY_HEADER_HEIGHT = 40;
+const AVATAR_SIZE = 120;
 
 const window = Dimensions.get('window');
 const styles = StyleSheet.create({
+  parallaxForegroundSection: {
+    height: 300,
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
   stickySection: {
     height: STICKY_HEADER_HEIGHT,
   },
@@ -19,6 +27,30 @@ const styles = StyleSheet.create({
     height: STICKY_HEADER_HEIGHT,
     paddingLeft: 10,
     paddingTop: 8,
+  },
+  parallaxHeader: {
+    alignItems: 'center',
+    flex: 1,
+    flexDirection: 'column',
+    paddingTop: 100,
+  },
+  avatar: {
+    marginBottom: 10,
+    borderRadius: AVATAR_SIZE / 2,
+  },
+  sectionSpeakerText: {
+    color: 'white',
+    fontSize: 19,
+    paddingVertical: 5
+  },
+  sectionTitleText: {
+    color: 'white',
+    fontSize: 15,
+    paddingVertical: 5
+  },
+  containerItem: {
+    flex: 1,
+    backgroundColor: 'white',
   },
 });
 
@@ -39,11 +71,10 @@ class MoviesDetails extends Component {
   }
 
   renderBackground = (movie) => {
-    const uriImagePath = `${IMAGE_PATH}${movie.item.poster_path}`;
     return (
       <View key="background">
         <Image source={{
-          uri: uriImagePath,
+          uri: `${IMAGE_PATH}${movie.item.poster_path}`,
           width: window.width,
           height: PARALLAX_HEADER_HEIGHT,
         }}
@@ -67,6 +98,24 @@ class MoviesDetails extends Component {
     );
   }
 
+  renderForeground = (movie) => {
+    return (
+      <View key="parallax-header" style={styles.parallaxHeader}>
+        <Image style={ styles.avatar } source={{
+          uri: `${IMAGE_PATH}${movie.item.poster_path}`,
+          width: AVATAR_SIZE,
+          height: AVATAR_SIZE
+        }} />
+        <Text style={styles.sectionSpeakerText}>
+          {movie.item.title}
+        </Text>
+        <Text style={styles.sectionTitleText}>
+          Média total: {movie.item.vote_average}
+        </Text>
+      </View>
+    );
+  }
+
   render() {
     const { movie, isLoading } = this.state;
     if (isLoading) {
@@ -78,15 +127,16 @@ class MoviesDetails extends Component {
     }
 
     return (
-      <View style={{ flex: 1, backgroundColor: 'white' }}>
+      <View style={styles.containerItem}>
         <ParallaxScrollView
           backgroundColor="black"
           parallaxHeaderHeight={PARALLAX_HEADER_HEIGHT}
           stickyHeaderHeight={STICKY_HEADER_HEIGHT}
           renderBackground={() => this.renderBackground(movie)}
           renderStickyHeader={() => this.renderSticky(movie)}
+          renderForeground={() => this.renderForeground(movie)}
         >
-
+          <CardItemBordered description={movie.item.overview} />
         </ParallaxScrollView>
       </View>
     );

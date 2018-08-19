@@ -49,7 +49,7 @@ class MoviesList extends Component {
       >
         <FlatList
           data={movies.results}
-          keyExtractor={movie => movie.id}
+          keyExtractor={movie => `movie-${movie.id}`}
           ItemSeparatorComponent={this.renderSeparator}
           renderItem={(movie) => <MovieItem movie={movie} /> }
         />
