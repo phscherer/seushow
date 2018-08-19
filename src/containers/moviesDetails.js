@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Text, Image, Dimensions, StyleSheet, View, ActivityIndicator, ScrollView } from 'react-native';
 import ParallaxScrollView from 'react-native-parallax-scroll-view';
+import { Button, Icon, Container, Content } from 'native-base';
 
 import { IMAGE_PATH } from '../actionTypes/app';
 import CardItemBordered from '../components/cardItemBordered';

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { Text, Container, Header, Content, Card, CardItem, Body } from 'native-base';
+import { Text, Container, Content, Card, CardItem, Body } from 'native-base';
+import _ from 'lodash';
 
 class CardItemBordered extends Component {
   constructor(props) {
@@ -17,7 +18,7 @@ class CardItemBordered extends Component {
             <CardItem bordered>
               <Body>
                 <Text>
-                  {this.props.description === '' ? 'Sem informações.' : this.props.description}
+                  {this.props.description === '' ? 'Sem informações.' : _.slice(this.props.description, 0, 700)}
                 </Text>
               </Body>
             </CardItem>
