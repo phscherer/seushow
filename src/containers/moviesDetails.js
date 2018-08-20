@@ -116,6 +116,10 @@ class MoviesDetails extends Component {
       </View>
     );
   }
+  
+  addMovie() {
+    console.log('add!');
+  }
 
   render() {
     const { movie, isLoading } = this.state;
