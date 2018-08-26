@@ -1,9 +1,11 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { createStackNavigator } from 'react-navigation';
 
 import Home from './containers/home';
 import MoviesList from './containers/moviesList';
 import MoviesDetails from './containers/moviesDetails';
+import SeriesDetails from './containers/seriesDetails';
+import SeriesList from './containers/seriesList';
 
 export default createStackNavigator(
   {
@@ -16,6 +18,12 @@ export default createStackNavigator(
     },
     MoviesDetails: {
       screen: MoviesDetails,
+    },
+    SeriesList: {
+      screen: SeriesList,
+    },
+    SeriesDetails: {
+      screen: SeriesDetails,
     },
   },
   {
