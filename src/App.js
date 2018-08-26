@@ -12,20 +12,12 @@ export default createStackNavigator(
     },
     MoviesDetails: {
       screen: MoviesDetails,
-      header: null,
     },
   },
   {
     initialRouteName: 'MoviesList',
     navigationOptions: {
-      title: 'Em alta',
-      headerStyle: {
-        backgroundColor: '#AB3737',
-      },
-      headerTintColor: '#fff',
-      headerTitleStyle: {
-        fontWeight: 'bold',
-      },
+      header: null,
     },
   },
 );

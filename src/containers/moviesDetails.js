@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
-import { Text, Image, Dimensions, StyleSheet, View, ActivityIndicator, ScrollView } from 'react-native';
+import { Text, Image, Dimensions, StyleSheet, View, ActivityIndicator } from 'react-native';
+import { Container } from 'native-base';
 import ParallaxScrollView from 'react-native-parallax-scroll-view';
-import { Button, Icon, Container, Content } from 'native-base';
 
 import { IMAGE_PATH } from '../actionTypes/app';
 import CardItemBordered from '../components/cardItemBordered';
+import DefaultHeaderBack from '../components/defaultHeaderBack';
+import MoviesList from './moviesList';
 
 const PARALLAX_HEADER_HEIGHT = 315;
 const STICKY_HEADER_HEIGHT = 40;
@@ -132,18 +134,21 @@ class MoviesDetails extends Component {
     }
 
     return (
-      <View style={styles.containerItem}>
-        <ParallaxScrollView
-          backgroundColor="black"
-          parallaxHeaderHeight={PARALLAX_HEADER_HEIGHT}
-          stickyHeaderHeight={STICKY_HEADER_HEIGHT}
-          renderBackground={() => this.renderBackground(movie)}
-          renderStickyHeader={() => this.renderSticky(movie)}
-          renderForeground={() => this.renderForeground(movie)}
-        >
-          <CardItemBordered description={movie.item.overview} />
-        </ParallaxScrollView>
-      </View>
+      <Container>
+        <DefaultHeaderBack title={'Filmes'} pageName={'MoviesList'} />
+        <View style={styles.containerItem}>
+          <ParallaxScrollView
+            backgroundColor="black"
+            parallaxHeaderHeight={PARALLAX_HEADER_HEIGHT}
+            stickyHeaderHeight={STICKY_HEADER_HEIGHT}
+            renderBackground={() => this.renderBackground(movie)}
+            renderStickyHeader={() => this.renderSticky(movie)}
+            renderForeground={() => this.renderForeground(movie)}
+          >
+            <CardItemBordered description={movie.item.overview} />
+          </ParallaxScrollView>
+        </View>
+      </Container>
     );
   }
 }
