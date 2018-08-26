@@ -3,6 +3,7 @@ import { Container, Tabs, Tab, Text } from 'native-base';
 
 import DefaultHeader from '../components/defaultHeader';
 import MoviesList from './moviesList';
+import SeriesList from './seriesList';
 
 class Home extends Component {
   constructor(props) {
@@ -18,7 +19,7 @@ class Home extends Component {
             <MoviesList />
           </Tab>
           <Tab heading="Séries">
-            <Text>work in progress</Text>
+            <SeriesList />
           </Tab>
         </Tabs>
       </Container>
