@@ -6,7 +6,6 @@ import ParallaxScrollView from 'react-native-parallax-scroll-view';
 import { IMAGE_PATH } from '../actionTypes/app';
 import CardItemBordered from '../components/cardItemBordered';
 import DefaultHeaderBack from '../components/defaultHeaderBack';
-import MoviesList from './moviesList';
 
 const PARALLAX_HEADER_HEIGHT = 315;
 const STICKY_HEADER_HEIGHT = 40;

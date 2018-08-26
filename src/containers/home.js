@@ -14,13 +14,10 @@ class Home extends Component {
       <Container>
         <DefaultHeader titlePage={'Seu Show'} />
         <Tabs initialPage={0}>
-          <Tab heading="Em alta">
+          <Tab heading="Filmes">
             <MoviesList />
           </Tab>
           <Tab heading="Séries">
-            <Text>work in progress</Text>
-          </Tab>
-          <Tab heading="Filmes">
             <Text>work in progress</Text>
           </Tab>
         </Tabs>
