@@ -3,13 +3,14 @@ import { Text, Image, Dimensions, StyleSheet, View, ActivityIndicator } from 're
 import { Container } from 'native-base';
 import ParallaxScrollView from 'react-native-parallax-scroll-view';
 
-import { IMAGE_PATH } from '../actionTypes/app';
+import {
+  IMAGE_PATH,
+  PARALLAX_HEADER_HEIGHT,
+  STICKY_HEADER_HEIGHT,
+  AVATAR_SIZE
+} from '../actionTypes/app';
 import CardItemBordered from '../components/cardItemBordered';
 import DefaultHeaderBack from '../components/defaultHeaderBack';
-
-const PARALLAX_HEADER_HEIGHT = 315;
-const STICKY_HEADER_HEIGHT = 40;
-const AVATAR_SIZE = 120;
 
 const window = Dimensions.get('window');
 const styles = StyleSheet.create({

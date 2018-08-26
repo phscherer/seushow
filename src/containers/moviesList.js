@@ -1,11 +1,9 @@
 import React, { Component } from 'react';
 import { View, FlatList, ActivityIndicator } from 'react-native';
-import { Container } from 'native-base';
 import axios from 'axios';
 import { API_KEY } from '../actionTypes/app';
 import { DISCOVER_PATH } from '../actionTypes/movies';
 import MovieItem from '../components/moviesItem';
-import DefaultHeader from '../components/defaultHeader';
 
 class MoviesList extends Component {
   constructor(props) {
@@ -20,7 +18,7 @@ class MoviesList extends Component {
   componentWillMount() {
     axios.get(`${DISCOVER_PATH}movie?sort_by=popularity.desc&api_key=${API_KEY}&language=pt-BR`)
       .then((response) => { this.setState({ movies: response.data, isLoading: false }); })
-      .catch(() => console.log('Error!'));
+      .catch(() => console.log('Error getting movie data!'));
   }
 
   renderSeparator = () => {
