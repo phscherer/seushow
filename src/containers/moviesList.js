@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { View, FlatList, ActivityIndicator } from 'react-native';
-import {  Container, Tabs, Tab } from 'native-base';
+import { Container } from 'native-base';
 import axios from 'axios';
 import { API_KEY } from '../actionTypes/app';
 import { DISCOVER_PATH } from '../actionTypes/movies';
@@ -46,19 +46,16 @@ class MoviesList extends Component {
       );
     }
     return (
-      <Container>
-        <DefaultHeader titlePage={'Em alta'} />
-        <View
-          containerStyle={{ borderTopWidth: 0, borderBottomWidth: 0 }}
-        >
-          <FlatList
-            data={movies.results}
-            keyExtractor={movie => `movie-${movie.id}`}
-            ItemSeparatorComponent={this.renderSeparator}
-            renderItem={(movie) => <MovieItem movie={movie} /> }
-          />
-        </View>
-      </Container>
+      <View
+        containerStyle={{ borderTopWidth: 0, borderBottomWidth: 0 }}
+      >
+        <FlatList
+          data={movies.results}
+          keyExtractor={movie => `movie-${movie.id}`}
+          ItemSeparatorComponent={this.renderSeparator}
+          renderItem={(movie) => <MovieItem movie={movie} /> }
+        />
+      </View>
     );
   }
 }

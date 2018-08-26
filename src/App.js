@@ -1,11 +1,15 @@
 import React, { Component } from 'react';
 import { createStackNavigator } from 'react-navigation';
 
+import Home from './containers/home';
 import MoviesList from './containers/moviesList';
 import MoviesDetails from './containers/moviesDetails';
 
 export default createStackNavigator(
   {
+    Home: {
+      screen: Home,
+    },
     MoviesList: {
       screen: MoviesList,
       header: null,
@@ -15,7 +19,7 @@ export default createStackNavigator(
     },
   },
   {
-    initialRouteName: 'MoviesList',
+    initialRouteName: 'Home',
     navigationOptions: {
       header: null,
     },
