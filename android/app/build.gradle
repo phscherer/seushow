@@ -138,7 +138,6 @@ android {
 
 dependencies {
     compile project(':react-native-fast-image')
-    compile project(':amazon-cognito-identity-js')
 	compile project(':react-native-vector-icons')
     compile fileTree(include: ['*.jar'], dir: 'libs')
     compile "com.android.support:appcompat-v7:${rootProject.ext.supportLibVersion}"
