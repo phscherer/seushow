@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { Text, Image, Dimensions, StyleSheet, View, ActivityIndicator } from 'react-native';
 import { Container } from 'native-base';
 import ParallaxScrollView from 'react-native-parallax-scroll-view';
+import CardItemBordered from '../components/cardItemBordered';
+import DefaultHeaderBack from '../components/defaultHeaderBack';
 
 import {
   IMAGE_PATH,
@@ -9,8 +11,6 @@ import {
   STICKY_HEADER_HEIGHT,
   AVATAR_SIZE
 } from '../actionTypes/app';
-import CardItemBordered from '../components/cardItemBordered';
-import DefaultHeaderBack from '../components/defaultHeaderBack';
 
 const window = Dimensions.get('window');
 const styles = StyleSheet.create({
@@ -57,7 +57,7 @@ const styles = StyleSheet.create({
   },
 });
 
-class MoviesDetails extends Component {
+class SeriesDetails extends Component {
   constructor(props) {
     super(props);
 
@@ -66,18 +66,18 @@ class MoviesDetails extends Component {
   }
 
   componentWillMount() {
-    const movie = this.routeParams.movieItem;
+    const tvShow = this.routeParams.serieItem;
     this.setState({
-      movie,
+      tvShow,
       isLoading: false
     });
   }
 
-  renderBackground = (movie) => {
+  renderBackground = (tvShow) => {
     return (
       <View key="background">
         <Image source={{
-          uri: `${IMAGE_PATH}${movie.item.poster_path}`,
+          uri: `${IMAGE_PATH}${tvShow.item.poster_path}`,
           width: window.width,
           height: PARALLAX_HEADER_HEIGHT,
         }}
@@ -93,38 +93,34 @@ class MoviesDetails extends Component {
     );
   }
 
-  renderSticky = (movie) => {
+  renderSticky = (tvShow) => {
     return (
       <View key="sticky-header" style={styles.stickySection}>
-        <Text style={styles.stickySectionText}>{movie.item.title}</Text>
+        <Text style={styles.stickySectionText}>{tvShow.item.original_name}</Text>
       </View>
     );
   }
 
-  renderForeground = (movie) => {
+  renderForeground = (tvShow) => {
     return (
       <View key="parallax-header" style={styles.parallaxHeader}>
         <Image style={ styles.avatar } source={{
-          uri: `${IMAGE_PATH}${movie.item.poster_path}`,
+          uri: `${IMAGE_PATH}${tvShow.item.poster_path}`,
           width: AVATAR_SIZE,
           height: AVATAR_SIZE
         }} />
         <Text style={styles.sectionSpeakerText}>
-          {movie.item.title}
+          {tvShow.item.original_name}
         </Text>
         <Text style={styles.sectionTitleText}>
-          Média total: {movie.item.vote_average}
+          Média total: {tvShow.item.vote_average}
         </Text>
       </View>
     );
   }
-  
-  addMovie() {
-    console.log('add!');
-  }
 
   render() {
-    const { movie, isLoading } = this.state;
+    const { tvShow, isLoading } = this.state;
     if (isLoading) {
       return (
         <View style={{ flex: 1, padding: 20 }}>
@@ -135,17 +131,17 @@ class MoviesDetails extends Component {
 
     return (
       <Container>
-        <DefaultHeaderBack title={'Filmes'} pageName={'Home'} />
+        <DefaultHeaderBack title={'Séries'} pageName={'Home'} />
         <View style={styles.containerItem}>
           <ParallaxScrollView
             backgroundColor="black"
             parallaxHeaderHeight={PARALLAX_HEADER_HEIGHT}
             stickyHeaderHeight={STICKY_HEADER_HEIGHT}
-            renderBackground={() => this.renderBackground(movie)}
-            renderStickyHeader={() => this.renderSticky(movie)}
-            renderForeground={() => this.renderForeground(movie)}
+            renderBackground={() => this.renderBackground(tvShow)}
+            renderStickyHeader={() => this.renderSticky(tvShow)}
+            renderForeground={() => this.renderForeground(tvShow)}
           >
-            <CardItemBordered description={movie.item.overview} />
+            <CardItemBordered description={tvShow.item.overview} />
           </ParallaxScrollView>
         </View>
       </Container>
@@ -153,4 +149,4 @@ class MoviesDetails extends Component {
   }
 }
 
-export default MoviesDetails;
+export default SeriesDetails;

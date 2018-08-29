@@ -1,24 +1,24 @@
 import React, { Component } from 'react';
 import { View, FlatList, ActivityIndicator } from 'react-native';
 import axios from 'axios';
+import SerieItem from '../components/seriesItem';
 import { API_KEY } from '../actionTypes/app';
-import { DISCOVER_PATH } from '../actionTypes/movies';
-import MovieItem from '../components/moviesItem';
 
-class MoviesList extends Component {
+class SeriesList extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      movies: [],
-      isLoading: true,
+      shows: [],
+      isLoading: true
     };
   }
-
+  
   componentWillMount() {
-    axios.get(`${DISCOVER_PATH}movie?sort_by=popularity.desc&api_key=${API_KEY}&language=pt-BR`)
-      .then((response) => { this.setState({ movies: response.data, isLoading: false }); })
-      .catch(() => console.log('Error getting movie data!'));
+    axios.get(`https://api.themoviedb.org/3/tv/popular?api_key=${API_KEY}&language=pt-BR`)
+      .then((response) => {
+        this.setState({ shows: response.data, isLoading: false });
+      }).catch(() => console.log('Error getting tv show data!'));
   }
 
   renderSeparator = () => {
@@ -35,7 +35,7 @@ class MoviesList extends Component {
   }
 
   render() {
-    const { movies, isLoading } = this.state;
+    const { shows, isLoading } = this.state;
     if (isLoading) {
       return (
         <View style={{ flex: 1, padding: 20 }}>
@@ -48,14 +48,14 @@ class MoviesList extends Component {
         containerStyle={{ borderTopWidth: 0, borderBottomWidth: 0 }}
       >
         <FlatList
-          data={movies.results}
-          keyExtractor={movie => `movie-${movie.id}`}
+          data={shows.results}
+          keyExtractor={show => `show-${show.id}`}
           ItemSeparatorComponent={this.renderSeparator}
-          renderItem={(movie) => <MovieItem movie={movie} /> }
+          renderItem={(show) => <SerieItem tvShow={show} /> }
         />
       </View>
     );
   }
 }
 
-export default MoviesList;
+export default SeriesList;
