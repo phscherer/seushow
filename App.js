@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { withAuthenticator } from 'aws-amplify-react-native';
 import SeuShow from './src/App.js';
 
 class App extends Component {
@@ -10,4 +9,4 @@ class App extends Component {
   }
 }
 
-export default withAuthenticator(App);
+export default App;
