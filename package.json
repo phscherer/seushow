@@ -16,6 +16,7 @@
     "eslint-plugin-import": "^2.13.0",
     "eslint-plugin-jsx-a11y": "^6.1.1",
     "eslint-plugin-react-native": "^3.2.1",
+    "firebase": "^5.4.2",
     "lodash": "^4.17.10",
     "native-base": "^2.7.2",
     "react": "16.4.1",
