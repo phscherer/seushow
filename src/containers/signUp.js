@@ -1,66 +1,79 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, TextInput, View, Button } from 'react-native';
+import { View } from 'react-native';
+import { Container, Header, Content, Form, Title, Button, Item, Text, Input } from 'native-base';
 import * as firebase from 'firebase';
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center'
-  },
-  textInput: {
-    height: 40,
-    width: '90%',
-    borderColor: 'gray',
-    borderWidth: 1,
-    marginTop: 8
-  },
-});
+const InputItem = props => (
+  <Item>
+    <Input {...props} />
+  </Item>
+);
 
 export default class SignUp extends Component {
   state = {
     email: '',
     password: '',
+    confirmPassword: '',
     errorMessage: null
   };
 
   handleSignUp = () => {
-    firebase
-      .auth()
-      .createUserWithEmailAndPassword(this.state.email, this.state.password)
-      .then(() => this.props.navigation.navigate('Home'))
-      .catch(error => this.setState({ errorMessage: error.message }));
+    if (this.state.password !== this.state.confirmPassword) {
+      this.setState({ errorMessage: 'As senhas não conferem!' })
+    } else {
+      firebase
+        .auth()
+        .createUserWithEmailAndPassword(this.state.email, this.state.password)
+        .then(() => this.props.navigation.navigate('Home'))
+        .catch(error => this.setState({ errorMessage: error.message }));
+    }
   }
 
   render() {
     return (
-      <View style={styles.container}>
-        <Text>Cadastre-se</Text>
-        { this.state.errorMessage &&
-          <Text style={{ color: 'red' }}>
-            { this.state.errorMessage }
-          </Text>
-        }
-        <TextInput
-          placeholder="Email"
-          autoCapitalize="none"
-          style={styles.textInput}
-          onChangeText={email => this.setState({ email })}
-          value={this.state.email}
-        />
-        <TextInput
-          placeholder="Senha"
-          autoCapitalize="none"
-          style={styles.textInput}
-          onChangeText={password => this.setState({ password })}
-          value={this.state.password}
-        />
-        <Button title="Cadastrar" onPress={this.handleSignUp} />
-        <Button
-          title="Já tem uma conta? Logue-se"
-          onPress={() => this.props.navigation.navigate('Login')}
-        />
-      </View>
+      <Container>
+        <Header style={{ backgroundColor: '#AB3737' }}>
+          <Title style={{ color: 'black', alignSelf: 'center' }}>Cadastrar</Title>
+        </Header>
+        <Content style={{ backgroundColor: 'white' }} padder>
+          <View>
+            <Form>
+              { this.state.errorMessage &&
+                <Text style={{ color: 'red' }}>
+                  { this.state.errorMessage }
+                </Text>
+              }
+              <InputItem
+                placeholder="Email"
+                onChangeText={email => this.setState({ email, errorMessage: null })}
+                value={this.state.email}
+              />
+              <InputItem
+                secureTextEntry
+                placeholder="Senha"
+                onChangeText={password => this.setState({ password, errorMessage: null })}
+                value={this.state.password}
+              />
+              <InputItem
+                secureTextEntry
+                placeholder="Confirme sua senha"
+                onChangeText={confirmPassword => this.setState({ confirmPassword, errorMessage: null })}
+                value={this.state.confirmPassword}
+              />
+              <View style={{ marginTop: 10 }}>
+                <Button block dark onPress={this.handleSignUp}>
+                  <Text>Cadastrar</Text>
+                </Button>
+              </View>
+              <View style={{ marginTop: 10 }}>
+                <Button block dark onPress={() => this.props.navigation.navigate('Login')}>
+                  <Text>Já tem uma conta? Logue-se</Text>
+                </Button>
+              </View>
+            </Form>
+          </View>
+        </Content>
+      </Container>
     );
   }
 }
