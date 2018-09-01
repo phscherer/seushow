@@ -6,11 +6,27 @@ import MoviesList from './containers/moviesList';
 import MoviesDetails from './containers/moviesDetails';
 import SeriesDetails from './containers/seriesDetails';
 import SeriesList from './containers/seriesList';
+import SignUp from './containers/signUp';
+import Login from './containers/login';
+import MainLogin from './containers/mainLogin';
+import Loading from './components/loading';
 
 export default createStackNavigator(
   {
     Home: {
       screen: Home,
+    },
+    Loading: {
+      screen: Loading,
+    },
+    SignUp: {
+      screen: SignUp,
+    },
+    Login: {
+      screen: Login,
+    },
+    MainLogin: {
+      screen: MainLogin,
     },
     MoviesList: {
       screen: MoviesList,
@@ -27,7 +43,7 @@ export default createStackNavigator(
     },
   },
   {
-    initialRouteName: 'Home',
+    initialRouteName: 'Loading',
     navigationOptions: {
       header: null,
     },

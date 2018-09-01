@@ -1,15 +1,13 @@
-import { AppRegistry } from 'react-native';
-import App from './App';
-import { name as appName } from './app.json';
-import * as firebase from 'firebase';
+import firebase from 'firebase';
 
-firebase.initializeApp({
+const config = {
   apiKey: "AIzaSyC1ouPRZdU1iQ92-niTBXm9A9lluTL8djY",
   authDomain: "seu-show.firebaseapp.com",
   databaseURL: "https://seu-show.firebaseio.com",
   projectId: "seu-show",
   storageBucket: "seu-show.appspot.com",
   messagingSenderId: "922970501074"
-});
+};
 
-AppRegistry.registerComponent(appName, () => App);
+export const firebaseImpl = firebase.initializeApp(config);
+export const firebaseDatabase = firebase.database();
