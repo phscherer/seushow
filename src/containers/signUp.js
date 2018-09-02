@@ -32,7 +32,11 @@ export default class SignUp extends Component {
           let emailBase64 = b64.encode(this.state.email);
           firebase.database()
             .ref(`/users/${emailBase64}/`)
-            .push({ nome: this.state.name })
+            .push({
+              nome: this.state.name,
+              episodiosAssistidos: 0,
+              quantidadeShows: 0
+            })
             .then(() => this.props.navigation.navigate('Home'))
             .catch(error => this.setState({ errorMessage: error.message }));
         })
