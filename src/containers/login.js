@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import { View } from 'react-native';
 import { Container, Header, Content, Form, Title, Button, Item, Text, Input, Icon } from 'native-base';
 import * as firebase from 'firebase';
-import FBSDK, { LoginManager, AccessToken, GraphRequest, GraphRequestManager } from 'react-native-fbsdk';
-import { Actions } from 'react-native-router-flux';
+import FBSDK, { LoginManager, AccessToken } from 'react-native-fbsdk';
+import { SocialIcon } from 'react-native-elements';
 
 const InputItem = props => (
   <Item>
@@ -47,16 +47,10 @@ export default class Login extends Component {
     return (
       <Container>
         <Header style={{ backgroundColor: '#AB3737' }}>
-          <Title style={{ color: 'black', alignSelf: 'center' }}>Login</Title>
+          <Title style={{ color: 'white', alignSelf: 'center' }}>Login</Title>
         </Header>
         <Content style={{ backgroundColor: 'white' }} padder>
           <Form>
-            <View style={{ marginTop: 10, marginBottom: 15 }}>
-              <Button block onPress={this.handleFacebookLogin}>
-                <Icon name='logo-facebook' />
-                <Text>Entrar com Facebook</Text>
-              </Button>
-            </View>
             <View>
               { this.state.errorMessage &&
                 <Text style={{ color: 'red' }}>
@@ -80,8 +74,19 @@ export default class Login extends Component {
                 </Button>
               </View>
               <View style={{ marginTop: 10 }}>
-                <Button block dark onPress={() => this.props.navigation.navigate('SignUp')}>
-                  <Text>Não tem uma conta? Cadastre-se</Text>
+                <SocialIcon
+                  title='Entrar com Facebook'
+                  button
+                  type='facebook'
+                  onPress={this.handleFacebookLogin}
+                />
+              </View>
+              <View style={{ marginTop: 10 }}>
+                <Button transparent block dark onPress={() => this.props.navigation.navigate('SignUp')}>
+                  <Icon name='ios-contact' />
+                  <Text>
+                    Não tem uma conta? Cadastre-se
+                  </Text>
                 </Button>
               </View>
             </View>
