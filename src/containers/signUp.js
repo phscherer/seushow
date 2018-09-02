@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { View } from 'react-native';
-import { Container, Header, Content, Form, Title, Button, Item, Text, Input } from 'native-base';
+import { Container, Header, Content, Form, Title, Button, Item, Text, Input, Icon, Body, Left } from 'native-base';
 import * as firebase from 'firebase';
 
 const InputItem = props => (
@@ -33,7 +33,14 @@ export default class SignUp extends Component {
     return (
       <Container>
         <Header style={{ backgroundColor: '#AB3737' }}>
-          <Title style={{ color: 'white', alignSelf: 'center' }}>Cadastro</Title>
+          <Left>
+            <Button transparent onPress={() => this.props.navigation.navigate('Login')}>
+              <Icon type='EvilIcons' name='arrow-left' />
+            </Button>
+          </Left>
+          <Body>
+            <Title style={{ color: 'white' }}>Cadastro</Title>
+          </Body>
         </Header>
         <Content style={{ backgroundColor: 'white' }} padder>
           <View>
@@ -60,14 +67,9 @@ export default class SignUp extends Component {
                 onChangeText={confirmPassword => this.setState({ confirmPassword, errorMessage: null })}
                 value={this.state.confirmPassword}
               />
-              <View style={{ marginTop: 10 }}>
+              <View style={{ marginTop: 20 }}>
                 <Button block dark onPress={this.handleSignUp}>
                   <Text>Cadastrar</Text>
-                </Button>
-              </View>
-              <View style={{ marginTop: 10 }}>
-                <Button block dark onPress={() => this.props.navigation.navigate('Login')}>
-                  <Text>Já tem uma conta? Logue-se</Text>
                 </Button>
               </View>
             </Form>

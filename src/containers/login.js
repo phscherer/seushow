@@ -69,25 +69,25 @@ export default class Login extends Component {
                 value={this.state.password}
               />
               <View style={{ marginTop: 10 }}>
-                <Button block dark onPress={this.handleLogin}>
-                  <Text>Entrar</Text>
-                </Button>
-              </View>
-              <View style={{ marginTop: 10 }}>
-                <SocialIcon
-                  title='Entrar com Facebook'
-                  button
-                  type='facebook'
-                  onPress={this.handleFacebookLogin}
-                />
-              </View>
-              <View style={{ marginTop: 10 }}>
                 <Button transparent block dark onPress={() => this.props.navigation.navigate('SignUp')}>
-                  <Icon name='ios-contact' />
+                  <Icon name='ios-create' />
                   <Text>
                     Não tem uma conta? Cadastre-se
                   </Text>
                 </Button>
+              </View>
+              <View style={{ marginTop: 50 }}>
+                <Button block dark onPress={this.handleLogin}>
+                  <Text>Acessar</Text>
+                </Button>
+              </View>
+              <View style={{ marginTop: 10 }}>
+                <SocialIcon
+                  title='Acessar com Facebook'
+                  button
+                  type='facebook'
+                  onPress={this.handleFacebookLogin}
+                />
               </View>
             </View>
           </Form>
