@@ -33,7 +33,7 @@ export default class SignUp extends Component {
     return (
       <Container>
         <Header style={{ backgroundColor: '#AB3737' }}>
-          <Title style={{ color: 'black', alignSelf: 'center' }}>Cadastrar</Title>
+          <Title style={{ color: 'black', alignSelf: 'center' }}>Cadastro</Title>
         </Header>
         <Content style={{ backgroundColor: 'white' }} padder>
           <View>
