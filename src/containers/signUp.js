@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { View } from 'react-native';
 import { Container, Header, Content, Form, Title, Button, Item, Text, Input, Icon, Body, Left } from 'native-base';
 import * as firebase from 'firebase';
+import b64 from 'base-64';
 
 const InputItem = props => (
   <Item>
@@ -11,6 +12,7 @@ const InputItem = props => (
 
 export default class SignUp extends Component {
   state = {
+    name: '',
     email: '',
     password: '',
     confirmPassword: '',
@@ -19,12 +21,21 @@ export default class SignUp extends Component {
 
   handleSignUp = () => {
     if (this.state.password !== this.state.confirmPassword) {
-      this.setState({ errorMessage: 'As senhas não conferem!' })
+      this.setState({ errorMessage: 'As senhas não conferem!' });
+    } else if (this.state.name === '') {
+      this.setState({ errorMessage: 'O nome deve ser preenchido!' });
     } else {
       firebase
         .auth()
         .createUserWithEmailAndPassword(this.state.email, this.state.password)
-        .then(() => this.props.navigation.navigate('Home'))
+        .then((user) => {
+          let emailBase64 = b64.encode(this.state.email);
+          firebase.database()
+            .ref(`/users/${emailBase64}/`)
+            .push({ nome: this.state.name })
+            .then(() => this.props.navigation.navigate('Home'))
+            .catch(error => this.setState({ errorMessage: error.message }));
+        })
         .catch(error => this.setState({ errorMessage: error.message }));
     }
   }
@@ -50,6 +61,11 @@ export default class SignUp extends Component {
                   { this.state.errorMessage }
                 </Text>
               }
+              <InputItem
+                placeholder="Nome"
+                onChangeText={name => this.setState({ name, errorMessage: null })}
+                value={this.state.name}
+              />
               <InputItem
                 placeholder="Email"
                 onChangeText={email => this.setState({ email, errorMessage: null })}
