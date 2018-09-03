@@ -1,13 +1,12 @@
 import React from 'react';
-import { View, Header, Icon, Button, Title, Body, Right, Left, Tabs, Tab, Text } from 'native-base';
+import { View, Header, Icon, Button, Title, Body, Right, Left } from 'native-base';
 import { withNavigation } from 'react-navigation';
-import MoviesList from '../containers/moviesList';
 
 const DefaultHeader = ({ titlePage, pageName, navigation }) => {
   return (
     <Header hasTabs style={{ backgroundColor: '#AB3737' }}>
       <Left style={{ flex: 1 }}>
-        <Button transparent>
+        <Button transparent onPress={() => navigation.navigate('Profile')}>
           <Icon type='EvilIcons' name='user' />
         </Button>
       </Left>

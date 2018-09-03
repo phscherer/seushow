@@ -10,6 +10,7 @@ import SignUp from './containers/signUp';
 import Login from './containers/login';
 import MainLogin from './containers/mainLogin';
 import Loading from './components/loading';
+import Profile from './containers/profile';
 
 export default createStackNavigator(
   {
@@ -27,6 +28,9 @@ export default createStackNavigator(
     },
     MainLogin: {
       screen: MainLogin,
+    },
+    Profile: {
+      screen: Profile,
     },
     MoviesList: {
       screen: MoviesList,

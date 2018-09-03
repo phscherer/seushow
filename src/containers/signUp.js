@@ -37,7 +37,7 @@ export default class SignUp extends Component {
               episodiosAssistidos: 0,
               quantidadeShows: 0
             })
-            .then(() => this.props.navigation.navigate('Home'))
+            .then(() => this.props.navigation.navigate('Login'))
             .catch(error => this.setState({ errorMessage: error.message }));
         })
         .catch(error => this.setState({ errorMessage: error.message }));
