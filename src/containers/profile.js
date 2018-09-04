@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, Text, Image } from 'react-native';
+import { StyleSheet, View, Text, Image, ActivityIndicator } from 'react-native';
 import { Container } from 'native-base';
 import * as firebase from 'firebase';
 import b64 from 'base-64';
@@ -68,6 +68,7 @@ export default class Profile extends Component {
     nome: '',
     episodiosAssistidos: 0,
     quantidadeShows: 0,
+    isLoading: true,
   };
 
   componentDidMount() {
@@ -81,12 +82,25 @@ export default class Profile extends Component {
           nome: userValues[0].nome,
           episodiosAssistidos: userValues[0].episodiosAssistidos,
           quantidadeShows: userValues[0].quantidadeShows,
+          isLoading: false,
         });
       });
   }
 
   render() {
-    const { nome, episodiosAssistidos, quantidadeShows } = this.state;
+    const {
+      nome,
+      episodiosAssistidos,
+      quantidadeShows,
+      isLoading
+    } = this.state;
+    if (isLoading) {
+      return (
+        <View style={{ flex: 1, padding: 20 }}>
+          <ActivityIndicator size="large" color="#800020" />
+        </View>
+      );
+    }
     return (
       <Container>
         <DefaultHeaderBack title={'Meu Perfil'} pageName={'Home'} />
