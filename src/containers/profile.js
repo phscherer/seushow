@@ -3,6 +3,7 @@ import { StyleSheet, View, Text, Image } from 'react-native';
 import { Container } from 'native-base';
 import * as firebase from 'firebase';
 import b64 from 'base-64';
+import _ from 'lodash';
 import DefaultHeaderBack from '../components/defaultHeaderBack';
 
 const userAvatar = require('../../images/avatar.png');
@@ -63,14 +64,29 @@ const styles = StyleSheet.create({
 });
 
 export default class Profile extends Component {
-  render() {
+  state = {
+    nome: '',
+    episodiosAssistidos: 0,
+    quantidadeShows: 0,
+  };
+
+  componentDidMount() {
     let user = firebase.auth().currentUser;
     let emailBase64 = b64.encode(user.email);
     firebase.database()
       .ref(`/users/${emailBase64}/`)
       .on('value', snapshot => {
-        console.log(snapshot);
+        const userValues = _.values(snapshot.val());
+        this.setState({
+          nome: userValues[0].nome,
+          episodiosAssistidos: userValues[0].episodiosAssistidos,
+          quantidadeShows: userValues[0].quantidadeShows,
+        });
       });
+  }
+
+  render() {
+    const { nome, episodiosAssistidos, quantidadeShows } = this.state;
     return (
       <Container>
         <DefaultHeaderBack title={'Meu Perfil'} pageName={'Home'} />
@@ -78,9 +94,9 @@ export default class Profile extends Component {
           <View style={styles.header}>
             <View style={styles.headerContent}>
               <Image style={styles.avatar} source={userAvatar} />
-              <Text style={styles.name}>Paulo Scherer</Text>
-              <Text style={styles.userInfo}>Episódios vistos: 3102</Text>
-              <Text style={styles.userInfo}>Filmes na lista: 122</Text>
+              <Text style={styles.name}>{nome}</Text>
+              <Text style={styles.userInfo}>Episódios assistidos: {episodiosAssistidos}</Text>
+              <Text style={styles.userInfo}>Filmes na lista: {quantidadeShows}</Text>
             </View>
           </View>
           <View style={styles.body}>
