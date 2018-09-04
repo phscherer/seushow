@@ -1,15 +1,16 @@
 import React, { Component } from 'react';
 import { StyleSheet, View, Text, Image, ActivityIndicator } from 'react-native';
-import { Container } from 'native-base';
+import { Container, Button, Icon } from 'native-base';
 import * as firebase from 'firebase';
 import b64 from 'base-64';
 import _ from 'lodash';
 import DefaultHeaderBack from '../components/defaultHeaderBack';
+import { cardButton } from '../styles/index';
 
 const userAvatar = require('../../images/avatar.png');
 const styles = StyleSheet.create({
   header: {
-    backgroundColor: '#DCDCDC',
+    backgroundColor: 'white',
   },
   headerContent: {
     padding: 30,
@@ -20,7 +21,7 @@ const styles = StyleSheet.create({
     height: 130,
     borderRadius: 63,
     borderWidth: 4,
-    borderColor: 'white',
+    borderColor: 'gray',
     marginBottom: 10,
   },
   name: {
@@ -34,7 +35,7 @@ const styles = StyleSheet.create({
     fontWeight: '600',
   },
   body: {
-    backgroundColor: '#778899',
+    backgroundColor: '#DCDCDC',
     height: 500,
     alignItems: 'center',
   },
@@ -62,6 +63,8 @@ const styles = StyleSheet.create({
     color: '#FFFFFF',
   },
 });
+
+const stylesButton = StyleSheet.create(cardButton);
 
 export default class Profile extends Component {
   state = {
@@ -114,6 +117,22 @@ export default class Profile extends Component {
             </View>
           </View>
           <View style={styles.body}>
+            <View style={stylesButton.buttonView}>
+              <Button dark style={stylesButton.button}>
+                <Icon
+                  name='ios-list-box'
+                  style={stylesButton.buttonIcon}
+                />
+                <Text style={{ fontSize: 14, color: 'white' }}>Minhas Listas</Text>
+              </Button>
+              <Button dark style={stylesButton.button}>
+                <Icon
+                  name='ios-contacts'
+                  style={stylesButton.buttonIcon}
+                />
+                <Text style={{ fontSize: 14, color: 'white' }}>Amigos</Text>
+              </Button>
+            </View>
           </View>
         </View>
       </Container>

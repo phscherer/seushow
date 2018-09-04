@@ -2,34 +2,9 @@ import React, { Component } from 'react';
 import { Text, Container, Content, Card, CardItem, Body, Button, Icon } from 'native-base';
 import { StyleSheet, View } from 'react-native';
 import _ from 'lodash';
+import { cardButton } from '../styles/index';
 
-const styles = StyleSheet.create({
-  buttonIcon: {
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  buttonView: {
-    flex: 1,
-    margin: 5,
-    flexDirection: 'row',
-    alignItems: 'center',
-    borderWidth: 1,
-    borderColor: '#ddd',
-    borderRadius: 10,
-    padding: 10,
-  },
-  button: {
-    flex: 1,
-    margin: 5,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderWidth: 1,
-    borderColor: '#ddd',
-    borderRadius: 10,
-    padding: 7,
-  }
-});
+const styles = StyleSheet.create(cardButton);
 
 class CardItemBordered extends Component {
   constructor(props) {
