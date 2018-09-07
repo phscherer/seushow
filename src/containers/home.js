@@ -14,11 +14,23 @@ class Home extends Component {
     return (
       <Container>
         <DefaultHeader titlePage={'Seu Show'} />
-        <Tabs initialPage={0}>
-          <Tab heading="Filmes">
+        <Tabs initialPage={0} tabBarUnderlineStyle={{borderBottomWidth:2}}>
+          <Tab
+            heading="Filmes"
+            tabStyle={{ backgroundColor: '#e26761' }}
+            activeTabStyle={{ backgroundColor: '#e26761' }}
+            textStyle={{ color: 'white' }}
+            activeTextStyle={{ color: 'white', fontWeight: 'normal' }}
+          >
             <MoviesList />
           </Tab>
-          <Tab heading="Séries">
+          <Tab
+            heading="Séries"
+            tabStyle={{ backgroundColor: '#e26761' }}
+            activeTabStyle={{ backgroundColor: '#e26761' }}
+            textStyle={{ color: 'white' }}
+            activeTextStyle={{ color: 'white', fontWeight: 'normal' }}
+          >
             <SeriesList />
           </Tab>
         </Tabs>
