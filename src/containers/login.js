@@ -4,6 +4,7 @@ import { Container, Header, Content, Form, Title, Button, Item, Text, Input, Ico
 import * as firebase from 'firebase';
 import FBSDK, { LoginManager, AccessToken } from 'react-native-fbsdk';
 import { SocialIcon } from 'react-native-elements';
+import b64 from 'base-64';
 
 const InputItem = props => (
   <Item>
@@ -30,17 +31,35 @@ export default class Login extends Component {
   handleFacebookLogin = () => {
     LoginManager.logInWithReadPermissions(['public_profile', 'email']).then((result) => {
       if (result.isCancelled) {
-        console.log('Login cancelado!');
+        alert('Login cancelado!');
       } else {
         AccessToken.getCurrentAccessToken().then((accessTokenData) => {
           const credential = firebase.auth.FacebookAuthProvider.credential(accessTokenData.accessToken);
           firebase.auth().signInWithCredential(credential)
           .then((user) => {
-            this.props.navigation.navigate('Home');
-          }).catch(error => console.log('Erro na autenticação! ', error));
+            let emailBase64 = b64.encode(user.email);
+            firebase.database()
+              .ref(`/users/${emailBase64}/`)
+              .on('value', snapshot => {
+                console.log('on! ', snapshot.val());
+                if (snapshot.val() !== null) {
+                  this.props.navigation.navigate('Home');
+                } else {
+                  firebase.database()
+                    .ref(`/users/${emailBase64}/`)
+                    .push({
+                      nome: user.displayName,
+                      episodiosAssistidos: 0,
+                      quantidadeShows: 0
+                    })
+                    .then(() => this.props.navigation.navigate('Home'))
+                    .catch(error => this.setState({ errorMessage: error.message }));
+                }
+              });
+          }).catch(error => alert('Erro na autenticação! ', error));
         });
       }
-    }).catch(error => console.log('Erro! ', error));
+    }).catch(error => alert('Erro! ', error));
   }
 
   render() {
