@@ -118,14 +118,14 @@ export default class Profile extends Component {
           </View>
           <View style={styles.body}>
             <View style={stylesButton.buttonView}>
-              <Button dark style={stylesButton.button}>
+              <Button danger style={stylesButton.button}>
                 <Icon
                   name='ios-list-box'
                   style={stylesButton.buttonIcon}
                 />
-                <Text style={{ fontSize: 14, color: 'white' }}>Minhas Listas</Text>
+                <Text style={{ fontSize: 14, color: 'white' }}>Listas</Text>
               </Button>
-              <Button dark style={stylesButton.button}>
+              <Button danger style={stylesButton.button}>
                 <Icon
                   name='ios-contacts'
                   style={stylesButton.buttonIcon}

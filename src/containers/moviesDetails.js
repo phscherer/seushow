@@ -24,7 +24,7 @@ const styles = StyleSheet.create({
     height: STICKY_HEADER_HEIGHT,
   },
   stickySectionText: {
-    backgroundColor: '#a6a6a6',
+    backgroundColor: '#e26761',
     color: 'white',
     fontSize: 20,
     height: STICKY_HEADER_HEIGHT,
