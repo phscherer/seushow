@@ -2,7 +2,7 @@ import React from 'react';
 import { Header, Icon, Button, Title, Body, Left, Right } from 'native-base';
 import { withNavigation } from 'react-navigation';
 
-const DefaultHeaderBack = ({ title, pageName, navigation }) => {
+const DefaultHeaderBack = ({ title, pageName, backSearchPage, navigation }) => {
   return (
     <Header style={{ backgroundColor: '#AB3737' }}>
       <Left>
@@ -14,7 +14,7 @@ const DefaultHeaderBack = ({ title, pageName, navigation }) => {
         <Title>{ title }</Title>
       </Body>
       <Right style={{ flex: 1 }}>
-        <Button transparent>
+        <Button transparent onPress={() => navigation.navigate('Search', { backSearchPage })}>
           <Icon type='EvilIcons' name='search' />
         </Button>
       </Right>

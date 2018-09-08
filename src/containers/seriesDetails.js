@@ -131,7 +131,7 @@ class SeriesDetails extends Component {
 
     return (
       <Container>
-        <DefaultHeaderBack title={'Séries'} pageName={'Home'} />
+        <DefaultHeaderBack title={'Séries'} pageName={'Home'} backSearchPage={'SeriesDetails'} />
         <View style={styles.containerItem}>
           <ParallaxScrollView
             backgroundColor="black"

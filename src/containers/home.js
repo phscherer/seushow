@@ -13,8 +13,8 @@ class Home extends Component {
   render() {
     return (
       <Container>
-        <DefaultHeader titlePage={'Seu Show'} />
-        <Tabs initialPage={0} tabBarUnderlineStyle={{borderBottomWidth:2}}>
+        <DefaultHeader titlePage={'Seu Show'} backSearchPage={'Home'} />
+        <Tabs initialPage={0} tabBarUnderlineStyle={{ borderBottomWidth:2 }}>
           <Tab
             heading="Filmes"
             tabStyle={{ backgroundColor: '#e26761' }}

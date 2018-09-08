@@ -11,6 +11,7 @@ import Login from './containers/login';
 import MainLogin from './containers/mainLogin';
 import Loading from './components/loading';
 import Profile from './containers/profile';
+import Search from './components/searchBar';
 
 export default createStackNavigator(
   {
@@ -44,6 +45,9 @@ export default createStackNavigator(
     },
     SeriesDetails: {
       screen: SeriesDetails,
+    },
+    Search: {
+      screen: Search,
     },
   },
   {

@@ -135,7 +135,7 @@ class MoviesDetails extends Component {
 
     return (
       <Container>
-        <DefaultHeaderBack title={'Filmes'} pageName={'Home'} />
+        <DefaultHeaderBack title={'Filmes'} pageName={'Home'} backSearchPage={'MoviesDetails'} />
         <View style={styles.containerItem}>
           <ParallaxScrollView
             backgroundColor="black"

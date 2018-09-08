@@ -106,7 +106,7 @@ export default class Profile extends Component {
     }
     return (
       <Container>
-        <DefaultHeaderBack title={'Meu Perfil'} pageName={'Home'} />
+        <DefaultHeaderBack title={'Meu Perfil'} pageName={'Home'} backSearchPage={'Profile'} />
         <View style={styles.container}>
           <View style={styles.header}>
             <View style={styles.headerContent}>
