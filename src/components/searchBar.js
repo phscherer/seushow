@@ -86,7 +86,7 @@ export default class Search extends Component {
               data={searchResults.results}
               keyExtractor={result => `search-${result.id}`}
               ItemSeparatorComponent={this.renderSeparator}
-              renderItem={(result) => <SearchItem show={result} /> }
+              renderItem={(result) => <SearchItem tvShow={result} /> }
             />
           </View>
         }

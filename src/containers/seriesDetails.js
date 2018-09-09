@@ -4,6 +4,7 @@ import { Container } from 'native-base';
 import ParallaxScrollView from 'react-native-parallax-scroll-view';
 import CardItemBordered from '../components/cardItemBordered';
 import DefaultHeaderBack from '../components/defaultHeaderBack';
+import { showsDetails } from '../styles/index';
 
 import {
   IMAGE_PATH,
@@ -13,49 +14,7 @@ import {
 } from '../actionTypes/app';
 
 const window = Dimensions.get('window');
-const styles = StyleSheet.create({
-  parallaxForegroundSection: {
-    height: 300,
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  stickySection: {
-    height: STICKY_HEADER_HEIGHT,
-  },
-  stickySectionText: {
-    backgroundColor: '#a6a6a6',
-    color: 'white',
-    fontSize: 20,
-    height: STICKY_HEADER_HEIGHT,
-    paddingLeft: 10,
-    paddingTop: 8,
-  },
-  parallaxHeader: {
-    alignItems: 'center',
-    flex: 1,
-    flexDirection: 'column',
-    paddingTop: 100,
-  },
-  avatar: {
-    marginBottom: 10,
-    borderRadius: AVATAR_SIZE / 2,
-  },
-  sectionSpeakerText: {
-    color: 'white',
-    fontSize: 19,
-    paddingVertical: 5
-  },
-  sectionTitleText: {
-    color: 'white',
-    fontSize: 15,
-    paddingVertical: 5
-  },
-  containerItem: {
-    flex: 1,
-    backgroundColor: 'white',
-  },
-});
+const styles = StyleSheet.create(showsDetails);
 
 class SeriesDetails extends Component {
   constructor(props) {

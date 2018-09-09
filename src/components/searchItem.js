@@ -12,18 +12,18 @@ const styles = StyleSheet.create({
   }
 });
 
-const SearchItem = ({ show, navigation }) => {
-  //const goToDetails = movieItem => navigation.navigate('MoviesDetails', { movieItem });
-  const uriImagePath = `${IMAGE_PATH}${show.item.poster_path}`;
-  const showName = show.item.title === undefined ? show.item.name : show.item.title;
+const SearchItem = ({ tvShow, navigation }) => {
+  const goToDetails = showItem => navigation.navigate('SearchDetails', { showItem });
+  const uriImagePath = `${IMAGE_PATH}${tvShow.item.poster_path}`;
+  const showName = tvShow.item.title === undefined ? tvShow.item.original_name : tvShow.item.title;
   return (
     <ListItem
       roundAvatar
       title={showName}
-      subtitle={show.item.overview}
+      subtitle={tvShow.item.overview}
       avatar={{ uri: uriImagePath }}
       containerStyle={styles.item}
-      //onPress={() => goToDetails(show)}
+      onPress={() => goToDetails(tvShow)}
     />
   );
 };
