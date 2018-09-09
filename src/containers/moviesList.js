@@ -3,7 +3,8 @@ import { View, FlatList, ActivityIndicator } from 'react-native';
 import axios from 'axios';
 import { API_KEY } from '../actionTypes/app';
 import { DISCOVER_PATH } from '../actionTypes/movies';
-import MovieItem from '../components/moviesItem';
+//import MovieItem from '../components/moviesItem';
+import ShowsItem from '../components/showsItem';
 
 class MoviesList extends Component {
   constructor(props) {
@@ -51,7 +52,7 @@ class MoviesList extends Component {
           data={movies.results}
           keyExtractor={movie => `movie-${movie.id}`}
           ItemSeparatorComponent={this.renderSeparator}
-          renderItem={(movie) => <MovieItem movie={movie} /> }
+          renderItem={(movie) => <ShowsItem tvShow={movie} /> }
         />
       </View>
     );

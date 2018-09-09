@@ -3,8 +3,7 @@ import { createStackNavigator } from 'react-navigation';
 
 import Home from './containers/home';
 import MoviesList from './containers/moviesList';
-import MoviesDetails from './containers/moviesDetails';
-import SeriesDetails from './containers/seriesDetails';
+import ShowsDetails from './containers/showsDetails';
 import SeriesList from './containers/seriesList';
 import SignUp from './containers/signUp';
 import Login from './containers/login';
@@ -38,14 +37,11 @@ export default createStackNavigator(
       screen: MoviesList,
       header: null,
     },
-    MoviesDetails: {
-      screen: MoviesDetails,
-    },
     SeriesList: {
       screen: SeriesList,
     },
-    SeriesDetails: {
-      screen: SeriesDetails,
+    ShowsDetails: {
+      screen: ShowsDetails,
     },
     Search: {
       screen: Search,

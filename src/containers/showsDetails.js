@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { Text, Image, Dimensions, StyleSheet, View, ActivityIndicator } from 'react-native';
 import { Container } from 'native-base';
 import ParallaxScrollView from 'react-native-parallax-scroll-view';
+import CardItemBordered from '../components/cardItemBordered';
+import DefaultHeaderBack from '../components/defaultHeaderBack';
 import { showsDetails } from '../styles/index';
 
 import {
@@ -10,13 +12,11 @@ import {
   STICKY_HEADER_HEIGHT,
   AVATAR_SIZE
 } from '../actionTypes/app';
-import CardItemBordered from '../components/cardItemBordered';
-import DefaultHeaderBack from '../components/defaultHeaderBack';
 
 const window = Dimensions.get('window');
 const styles = StyleSheet.create(showsDetails);
 
-class MoviesDetails extends Component {
+class ShowsDetails extends Component {
   constructor(props) {
     super(props);
 
@@ -25,18 +25,18 @@ class MoviesDetails extends Component {
   }
 
   componentWillMount() {
-    const movie = this.routeParams.movieItem;
+    const tvShow = this.routeParams.showItem;
     this.setState({
-      movie,
+      tvShow,
       isLoading: false
     });
   }
 
-  renderBackground = (movie) => {
+  renderBackground = (tvShow) => {
     return (
       <View key="background">
         <Image source={{
-          uri: `${IMAGE_PATH}${movie.item.poster_path}`,
+          uri: `${IMAGE_PATH}${tvShow.item.poster_path}`,
           width: window.width,
           height: PARALLAX_HEADER_HEIGHT,
         }}
@@ -52,38 +52,36 @@ class MoviesDetails extends Component {
     );
   }
 
-  renderSticky = (movie) => {
+  renderSticky = (tvShow) => {
+    const showName = tvShow.item.title === undefined ? tvShow.item.original_name : tvShow.item.title;
     return (
       <View key="sticky-header" style={styles.stickySection}>
-        <Text style={styles.stickySectionText}>{movie.item.title}</Text>
+        <Text style={styles.stickySectionText}>{showName}</Text>
       </View>
     );
   }
 
-  renderForeground = (movie) => {
+  renderForeground = (tvShow) => {
+    const showName = tvShow.item.title === undefined ? tvShow.item.original_name : tvShow.item.title;
     return (
       <View key="parallax-header" style={styles.parallaxHeader}>
         <Image style={ styles.avatar } source={{
-          uri: `${IMAGE_PATH}${movie.item.poster_path}`,
+          uri: `${IMAGE_PATH}${tvShow.item.poster_path}`,
           width: AVATAR_SIZE,
           height: AVATAR_SIZE
         }} />
         <Text style={styles.sectionSpeakerText}>
-          {movie.item.title}
+          {showName}
         </Text>
         <Text style={styles.sectionTitleText}>
-          Média total: {movie.item.vote_average}
+          Média total: {tvShow.item.vote_average}
         </Text>
       </View>
     );
   }
-  
-  addMovie() {
-    console.log('add!');
-  }
 
   render() {
-    const { movie, isLoading } = this.state;
+    const { tvShow, isLoading } = this.state;
     if (isLoading) {
       return (
         <View style={{ flex: 1, padding: 20 }}>
@@ -94,17 +92,17 @@ class MoviesDetails extends Component {
 
     return (
       <Container>
-        <DefaultHeaderBack title={'Filmes'} pageName={'Home'} backSearchPage={'MoviesDetails'} />
+        <DefaultHeaderBack title={'TV Shows'} pageName={'Home'} backSearchPage={'ShowsDetails'} />
         <View style={styles.containerItem}>
           <ParallaxScrollView
             backgroundColor="black"
             parallaxHeaderHeight={PARALLAX_HEADER_HEIGHT}
             stickyHeaderHeight={STICKY_HEADER_HEIGHT}
-            renderBackground={() => this.renderBackground(movie)}
-            renderStickyHeader={() => this.renderSticky(movie)}
-            renderForeground={() => this.renderForeground(movie)}
+            renderBackground={() => this.renderBackground(tvShow)}
+            renderStickyHeader={() => this.renderSticky(tvShow)}
+            renderForeground={() => this.renderForeground(tvShow)}
           >
-            <CardItemBordered description={movie.item.overview} />
+            <CardItemBordered description={tvShow.item.overview} />
           </ParallaxScrollView>
         </View>
       </Container>
@@ -112,4 +110,4 @@ class MoviesDetails extends Component {
   }
 }
 
-export default MoviesDetails;
+export default ShowsDetails;

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { View, FlatList, ActivityIndicator } from 'react-native';
 import axios from 'axios';
-import SerieItem from '../components/seriesItem';
+import ShowsItem from '../components/showsItem';
 import { API_KEY } from '../actionTypes/app';
 
 class SeriesList extends Component {
@@ -51,7 +51,7 @@ class SeriesList extends Component {
           data={shows.results}
           keyExtractor={show => `show-${show.id}`}
           ItemSeparatorComponent={this.renderSeparator}
-          renderItem={(show) => <SerieItem tvShow={show} /> }
+          renderItem={(show) => <ShowsItem tvShow={show} /> }
         />
       </View>
     );

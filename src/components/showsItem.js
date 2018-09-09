@@ -12,19 +12,20 @@ const styles = StyleSheet.create({
   }
 });
 
-const MovieItem = ({ movie, navigation }) => {
-  const goToDetails = movieItem => navigation.navigate('MoviesDetails', { movieItem });
-  const uriImagePath = `${IMAGE_PATH}${movie.item.poster_path}`;
+const ShowsItem = ({ tvShow, navigation }) => {
+  const goToDetails = showItem => navigation.navigate('ShowsDetails', { showItem });
+  const showName = tvShow.item.title === undefined ? tvShow.item.original_name : tvShow.item.title;
+  const uriImagePath = `${IMAGE_PATH}${tvShow.item.poster_path}`;
   return (
     <ListItem
       roundAvatar
-      title={movie.item.title}
-      subtitle={movie.item.overview}
+      title={showName}
+      subtitle={tvShow.item.overview}
       avatar={{ uri: uriImagePath }}
       containerStyle={styles.item}
-      onPress={() => goToDetails(movie)}
+      onPress={() => goToDetails(tvShow)}
     />
   );
 };
 
-export default withNavigation(MovieItem);
+export default withNavigation(ShowsItem);
