@@ -25,6 +25,7 @@
     "react-native-elements": "^0.19.1",
     "react-native-fast-image": "^4.0.14",
     "react-native-fbsdk": "^0.6.3",
+    "react-native-modal": "^6.5.0",
     "react-native-parallax-scroll-view": "^0.21.3",
     "react-native-router-flux": "^4.0.0-beta.42",
     "react-native-vector-icons": "^4.6.0",
