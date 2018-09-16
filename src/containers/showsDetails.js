@@ -102,7 +102,7 @@ class ShowsDetails extends Component {
             renderStickyHeader={() => this.renderSticky(tvShow)}
             renderForeground={() => this.renderForeground(tvShow)}
           >
-            <CardItemBordered description={tvShow.item.overview} />
+            <CardItemBordered show={tvShow.item} />
           </ParallaxScrollView>
         </View>
       </Container>
