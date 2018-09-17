@@ -1,5 +1,9 @@
 import React, { Component } from 'react';
-import { Text, Container, Content, Card, CardItem, Body, Button, Icon } from 'native-base';
+import {
+  Text, Container, Content, Card,
+  CardItem, Body, Button, Icon,
+  Picker, Form
+} from 'native-base';
 import { StyleSheet, View, Dimensions } from 'react-native';
 import Modal from 'react-native-modal';
 import _ from 'lodash';
@@ -15,7 +19,7 @@ const modalStyles = StyleSheet.create({
     justifyContent: 'center',
   },
   dialogStyle: {
-    height: window.height*0.4,
+    height: window.height*0.3,
     width: window.width*0.9,
     backgroundColor: '#d3d3d3',
     elevation: 10,
@@ -27,6 +31,18 @@ const modalStyles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center'
   },
+  titleText: {
+    flex: 1,
+    fontWeight: 'bold',
+    fontSize: 20,
+    textAlign: 'center',
+  },
+  pickerStyle: {
+    borderRadius: 5,
+    borderWidth: 1,
+    borderColor: 'black',
+    width: window.width*0.5,
+  }
 });
 
 class CardItemBordered extends Component {
@@ -35,12 +51,16 @@ class CardItemBordered extends Component {
     
     this.state = {
       modalVisible: false,
+      selectedList: undefined,
     }
   }
 
   setModalVisible = (condition) => {
     this.setState({ modalVisible: condition });
-    console.log(this.state.modalVisible);
+  }
+
+  onValueChange = (value) => {
+    this.setState({ selectedList: value });
   }
 
   render() {
@@ -54,7 +74,7 @@ class CardItemBordered extends Component {
             <CardItem bordered>
               <Body>
                 <Text>
-                  {this.props.show.overview === '' ? 'Sem informações.' : _.slice(this.props.show.overview, 0, 700)}
+                  {this.props.show.overview === '' ? 'Sem informações.' : _.slice(this.props.show.overview, 0, 675)}
                 </Text>
               </Body>
             </CardItem>
@@ -83,10 +103,26 @@ class CardItemBordered extends Component {
               transparent={true}
               isVisible={this.state.modalVisible}
               onBackdropPress={() => this.setModalVisible(false)}
+              onModalHide={() => this.setState({ selectedList: undefined })}
             >
               <View style={modalStyles.viewStyle}>
                 <View style={modalStyles.dialogStyle}>
-                  
+                  <Text style={modalStyles.titleText}>Adicionar à lista...</Text>
+                  <View style={modalStyles.pickerStyle}>
+                    <Picker
+                      mode='dropdown'
+                      iosIcon={<Icon name='ios-arrow-down-outline' />}
+                      placeholder='Selecione a lista'
+                      style={{ width: undefined }}
+                      selectedValue={this.state.selectedList}
+                      onValueChange={this.onValueChange}
+                    >
+                      <Picker.Item label="Para assistir" value="lista01" />
+                      <Picker.Item label="Ativas" value="lista02" />
+                      <Picker.Item label="Finalizadas" value="lista03" />
+                      <Picker.Item label="Favoritas" value="lista04" />
+                    </Picker>
+                  </View>
                 </View>
               </View>
             </Modal>
