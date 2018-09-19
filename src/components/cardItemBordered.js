@@ -41,7 +41,6 @@ const modalStyles = StyleSheet.create({
     borderRadius: 5,
     borderWidth: 1,
     borderColor: 'black',
-    width: window.width*0.5,
   }
 });
 
@@ -63,7 +62,13 @@ class CardItemBordered extends Component {
     this.setState({ selectedList: value });
   }
 
+  incrementShowList = (list, show) => {
+    console.log('Lista: ', list);
+    console.log('Show: ', show);
+  }
+
   render() {
+    const { show } = this.props;
     return (
       <Container style={{ flex: 1 }}>
         <Content padder style={{ flex: 1 }}>
@@ -74,7 +79,7 @@ class CardItemBordered extends Component {
             <CardItem bordered>
               <Body>
                 <Text>
-                  {this.props.show.overview === '' ? 'Sem informações.' : _.slice(this.props.show.overview, 0, 675)}
+                  {show.overview === '' ? 'Sem informações.' : _.slice(show.overview, 0, 675)}
                 </Text>
               </Body>
             </CardItem>
@@ -122,6 +127,15 @@ class CardItemBordered extends Component {
                       <Picker.Item label="Finalizadas" value="lista03" />
                       <Picker.Item label="Favoritas" value="lista04" />
                     </Picker>
+                  </View>
+                  <View style={styles.buttonView}>
+                    <Button
+                      dark
+                      style={styles.button}
+                      onPress={() => this.incrementShowList(this.state.selectedList, show)}
+                    >
+                      <Text>Confirmar</Text>
+                    </Button>
                   </View>
                 </View>
               </View>
