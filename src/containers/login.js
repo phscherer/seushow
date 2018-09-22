@@ -48,9 +48,7 @@ export default class Login extends Component {
                   firebase.database()
                     .ref(`/users/${emailBase64}/`)
                     .push({
-                      nome: user.displayName,
-                      episodiosAssistidos: 0,
-                      quantidadeShows: 0
+                      nome: user.displayName
                     })
                     .then(() => this.props.navigation.navigate('Home'))
                     .catch(error => this.setState({ errorMessage: error.message }));

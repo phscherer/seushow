@@ -7,6 +7,8 @@ import {
 import { StyleSheet, View, Dimensions } from 'react-native';
 import Modal from 'react-native-modal';
 import _ from 'lodash';
+import * as firebase from 'firebase';
+import b64 from 'base-64';
 import { cardButton } from '../styles/index';
 
 const styles = StyleSheet.create(cardButton);
@@ -50,7 +52,7 @@ class CardItemBordered extends Component {
     
     this.state = {
       modalVisible: false,
-      selectedList: undefined,
+      selectedList: 'paraAssistir',
     }
   }
 
@@ -63,8 +65,31 @@ class CardItemBordered extends Component {
   }
 
   incrementShowList = (list, show) => {
-    console.log('Lista: ', list);
-    console.log('Show: ', show);
+    let user = firebase.auth().currentUser;
+    let emailBase64 = b64.encode(user.email);
+    let typeShow = !show.title ? 'serie' : 'movie';
+    firebase.database()
+      .ref(`/users/${emailBase64}/${list}`)
+      .push({
+        showId: show.id,
+        type: typeShow
+      })
+      .then(() => alert('Show adicionado com sucesso!'))
+      .catch(error => this.setState({ errorMessage: error.message }));
+      let episodios = 0;
+      let qtdeShows = 0;
+      firebase.database()
+        .ref(`/users/${emailBase64}/`)
+        .on('value', snapshot => {
+          episodios = snapshot.val().episodiosAssistidos !== undefined ? snapshot.val().episodiosAssistidos : 0;
+          qtdeShows = snapshot.val().quantidadeShows !== undefined ? snapshot.val().quantidadeShows : 0;
+        });
+      firebase.database()
+        .ref(`/users/${emailBase64}/`)
+        .update({
+          episodiosAssistidos: episodios,
+          quantidadeShows: qtdeShows + 1
+        });
   }
 
   render() {
@@ -114,19 +139,36 @@ class CardItemBordered extends Component {
                 <View style={modalStyles.dialogStyle}>
                   <Text style={modalStyles.titleText}>Adicionar à lista...</Text>
                   <View style={modalStyles.pickerStyle}>
-                    <Picker
-                      mode='dropdown'
-                      iosIcon={<Icon name='ios-arrow-down-outline' />}
-                      placeholder='Selecione a lista'
-                      style={{ width: undefined }}
-                      selectedValue={this.state.selectedList}
-                      onValueChange={this.onValueChange}
-                    >
-                      <Picker.Item label="Para assistir" value="lista01" />
-                      <Picker.Item label="Ativas" value="lista02" />
-                      <Picker.Item label="Finalizadas" value="lista03" />
-                      <Picker.Item label="Favoritas" value="lista04" />
-                    </Picker>
+                    { !show.title &&
+                      <Picker
+                        mode='dropdown'
+                        iosIcon={<Icon name='ios-arrow-down-outline' />}
+                        placeholder='Selecione a lista'
+                        style={{ width: undefined }}
+                        selectedValue={this.state.selectedList}
+                        onValueChange={this.onValueChange}
+                      >
+                        <Picker.Item label="Para assistir" value="paraAssistir" />
+                        <Picker.Item label="Ativas" value="ativas" />
+                        <Picker.Item label="Finalizadas" value="finalizadas" />
+                        <Picker.Item label="Favoritos" value="favoritos" />
+                      </Picker>
+                    }
+                    {
+                      !show.name &&
+                      <Picker
+                        mode='dropdown'
+                        iosIcon={<Icon name='ios-arrow-down-outline' />}
+                        placeholder='Selecione a lista'
+                        style={{ width: undefined }}
+                        selectedValue={this.state.selectedList}
+                        onValueChange={this.onValueChange}
+                      >
+                        <Picker.Item label="Para assistir" value="paraAssistir" />
+                        <Picker.Item label="Assistidos" value="filmesAssistidos" />
+                        <Picker.Item label="Favoritos" value="favoritos" />
+                      </Picker>
+                    }
                   </View>
                   <View style={styles.buttonView}>
                     <Button

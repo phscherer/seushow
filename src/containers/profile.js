@@ -81,10 +81,14 @@ export default class Profile extends Component {
       .ref(`/users/${emailBase64}/`)
       .on('value', snapshot => {
         const userValues = _.values(snapshot.val());
+        episodios = snapshot.val().episodiosAssistidos !== undefined
+          ? snapshot.val().episodiosAssistidos : 0;
+        qtdeShows = snapshot.val().quantidadeShows !== undefined
+          ? snapshot.val().quantidadeShows : 0;
         this.setState({
           nome: userValues[0].nome,
-          episodiosAssistidos: userValues[0].episodiosAssistidos,
-          quantidadeShows: userValues[0].quantidadeShows,
+          episodiosAssistidos: episodios,
+          quantidadeShows: qtdeShows,
           isLoading: false,
         });
       });

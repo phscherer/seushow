@@ -33,9 +33,7 @@ export default class SignUp extends Component {
           firebase.database()
             .ref(`/users/${emailBase64}/`)
             .push({
-              nome: this.state.name,
-              episodiosAssistidos: 0,
-              quantidadeShows: 0
+              nome: this.state.name
             })
             .then(() => this.props.navigation.navigate('Login'))
             .catch(error => this.setState({ errorMessage: error.message }));
