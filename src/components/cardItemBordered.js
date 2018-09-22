@@ -4,7 +4,7 @@ import {
   CardItem, Body, Button, Icon,
   Picker, Form
 } from 'native-base';
-import { StyleSheet, View, Dimensions } from 'react-native';
+import { StyleSheet, View, Dimensions, Alert } from 'react-native';
 import Modal from 'react-native-modal';
 import _ from 'lodash';
 import * as firebase from 'firebase';
@@ -74,7 +74,7 @@ class CardItemBordered extends Component {
         showId: show.id,
         type: typeShow
       })
-      .then(() => alert('Show adicionado com sucesso!'))
+      .then(() => console.log('Success!'))
       .catch(error => this.setState({ errorMessage: error.message }));
       let episodios = 0;
       let qtdeShows = 0;
@@ -90,6 +90,7 @@ class CardItemBordered extends Component {
           episodiosAssistidos: episodios,
           quantidadeShows: qtdeShows + 1
         });
+      //this.setState({ modalVisible: false });
   }
 
   render() {
@@ -174,7 +175,17 @@ class CardItemBordered extends Component {
                     <Button
                       dark
                       style={styles.button}
-                      onPress={() => this.incrementShowList(this.state.selectedList, show)}
+                      onPress={() => {
+                        this.incrementShowList(this.state.selectedList, show);
+                        Alert.alert(
+                          'Sucesso!',
+                          'Show adicionado à lista com sucesso!',
+                          [
+                            { text: 'Ok', onPress: () => this.setModalVisible(false)},
+                          ],
+                          { cancelable: false }
+                        );
+                      }}
                     >
                       <Text>Confirmar</Text>
                     </Button>
