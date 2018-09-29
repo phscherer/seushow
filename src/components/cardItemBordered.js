@@ -59,12 +59,18 @@ class CardItemBordered extends Component {
     
     this.state = {
       modalVisible: false,
+      modalDisassociateVisible: false,
+      deletedShow: false,
       selectedList: 'paraAssistir',
     }
   }
 
   setModalVisible = (condition) => {
     this.setState({ modalVisible: condition });
+  }
+
+  setModalDisassociateVisible = (condition) => {
+    this.setState({ modalDisassociateVisible: condition });
   }
 
   onValueChange = (value) => {
@@ -99,18 +105,22 @@ class CardItemBordered extends Component {
       });
   }
 
-  disassociateShow = (show) => {
+  disassociateShow = (list, show) => {
     let user = firebase.auth().currentUser;
     let emailBase64 = b64.encode(user.email);
     let qtdeShows = 0;
-    firebase.database().ref(`/users/${emailBase64}/`)
+    firebase.database()
+      .ref(`/users/${emailBase64}/`)
       .on('value', snapshot => {
-        qtdeShows = snapshot.val().quantidadeShows !== undefined ? snapshot.val().quantidadeShows : 0;
+        qtdeShows = snapshot.val().quantidadeShows !== undefined
+          ? snapshot.val().quantidadeShows : 0;
       });
-    showLists.forEach((list) => {
-      firebase.database().ref(`/users/${emailBase64}/${list}/${show.id}`).remove();
-    });
-    firebase.database().ref(`/users/${emailBase64}/`).update({ quantidadeShows: qtdeShows - 1 });
+    firebase.database().ref(`/users/${emailBase64}/${list}/${show.id}`)
+      .remove()
+      .then(() => this.setState({ deletedShow: true }))
+      .catch(() => this.setState({ deletedShow: false }));
+    //TODO: resolver em breve.
+    //firebase.database().ref(`/users/${emailBase64}/`).update({ quantidadeShows: --qtdeShows });
   }
 
   render() {
@@ -144,17 +154,7 @@ class CardItemBordered extends Component {
             <Button
               danger
               style={styles.button}
-              onPress={() => {
-                Alert.alert(
-                  'Desassociar show',
-                  'Tem certeza de que deseja desassociar o show de suas listas?',
-                  [
-                    { text: 'Cancelar', style: 'cancel' },
-                    { text: 'Ok', onPress: () => this.disassociateShow(show)},
-                  ],
-                  { cancelable: false }
-                );
-              }}
+              onPress={() => this.setModalDisassociateVisible(true)}
             >
               <Icon
                 name='md-trash'
@@ -222,6 +222,82 @@ class CardItemBordered extends Component {
                       }}
                     >
                       <Text>Confirmar</Text>
+                    </Button>
+                  </View>
+                </View>
+              </View>
+            </Modal>
+          </View>
+          <View style={modalStyles.viewStyle}>
+            <Modal
+              animationType='slide'
+              transparent={true}
+              isVisible={this.state.modalDisassociateVisible}
+              onBackdropPress={() => this.setModalDisassociateVisible(false)}
+              onModalHide={() => this.setState({ selectedList: undefined })}
+            >
+              <View style={modalStyles.viewStyle}>
+                <View style={modalStyles.dialogStyle}>
+                  <Text style={modalStyles.titleText}>Remover show</Text>
+                  <View style={modalStyles.pickerStyle}>
+                    { !show.title &&
+                      <Picker
+                        mode='dropdown'
+                        iosIcon={<Icon name='ios-arrow-down-outline' />}
+                        placeholder='Selecione a lista'
+                        style={{ width: undefined }}
+                        selectedValue={this.state.selectedList}
+                        onValueChange={this.onValueChange}
+                      >
+                        <Picker.Item label="Para assistir" value="paraAssistir" />
+                        <Picker.Item label="Ativas" value="ativas" />
+                        <Picker.Item label="Finalizadas" value="finalizadas" />
+                        <Picker.Item label="Favoritos" value="favoritos" />
+                      </Picker>
+                    }
+                    {
+                      !show.name &&
+                      <Picker
+                        mode='dropdown'
+                        iosIcon={<Icon name='ios-arrow-down-outline' />}
+                        placeholder='Selecione a lista'
+                        style={{ width: undefined }}
+                        selectedValue={this.state.selectedList}
+                        onValueChange={this.onValueChange}
+                      >
+                        <Picker.Item label="Para assistir" value="paraAssistir" />
+                        <Picker.Item label="Assistidos" value="filmesAssistidos" />
+                        <Picker.Item label="Favoritos" value="favoritos" />
+                      </Picker>
+                    }
+                  </View>
+                  <View style={styles.buttonView}>
+                    <Button
+                      danger
+                      style={styles.button}
+                      onPress={() => {
+                        Alert.alert(
+                          'Desassociar show',
+                          'Tem certeza de que deseja desassociar o show da sua lista?',
+                          [
+                            { text: 'Cancelar', style: 'cancel' },
+                            { text: 'Ok', onPress: () => {
+                              this.disassociateShow(this.state.selectedList, show);
+                              Alert.alert(
+                                'Sucesso!',
+                                'Show removido da sua lista com sucesso!',
+                                [
+                                  { text: 'Ok', onPress: () => this.setModalDisassociateVisible(false)},
+                                ],
+                                { cancelable: false }
+                              );
+                            }},
+                          ],
+                          { cancelable: false }
+                        );
+                      }}
+                    >
+                      <Text>Remover</Text>
                     </Button>
                   </View>
                 </View>
