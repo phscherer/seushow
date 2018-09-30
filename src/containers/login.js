@@ -1,16 +1,33 @@
 import React, { Component } from 'react';
-import { View } from 'react-native';
+import { View, Image, StyleSheet } from 'react-native';
 import { Container, Header, Content, Form, Title, Button, Item, Text, Input, Icon } from 'native-base';
 import * as firebase from 'firebase';
 import FBSDK, { LoginManager, AccessToken } from 'react-native-fbsdk';
 import { SocialIcon } from 'react-native-elements';
 import b64 from 'base-64';
 
+const seuShowLogo = require('../../images/seushow-logotipo.png');
+
 const InputItem = props => (
   <Item>
     <Input {...props} />
   </Item>
 );
+
+const styles = StyleSheet.create({
+  avatar: {
+    width: 150,
+    height: 150,
+    borderRadius: 73,
+    borderWidth: 4,
+    borderColor: 'black',
+    marginBottom: 10,
+  },
+  headerContent: {
+    padding: 10,
+    alignItems: 'center',
+  },
+});
 
 export default class Login extends Component {
   state = {
@@ -41,7 +58,6 @@ export default class Login extends Component {
             firebase.database()
               .ref(`/users/${emailBase64}/`)
               .on('value', snapshot => {
-                console.log('on! ', snapshot.val());
                 if (snapshot.val() !== null) {
                   this.props.navigation.navigate('Home');
                 } else {
@@ -63,11 +79,12 @@ export default class Login extends Component {
   render() {
     return (
       <Container>
-        <Header style={{ backgroundColor: '#AB3737' }}>
-          <Title style={{ color: 'white', alignSelf: 'center' }}>Login</Title>
-        </Header>
         <Content style={{ backgroundColor: 'white' }} padder>
           <Form>
+            <View style={styles.headerContent}>
+              <Image style={styles.avatar} source={seuShowLogo} />
+              <Text>Seu Show</Text>
+            </View>
             <View>
               { this.state.errorMessage &&
                 <Text style={{ color: 'red' }}>
