@@ -122,7 +122,11 @@ export default class Profile extends Component {
           </View>
           <View style={styles.body}>
             <View style={stylesButton.buttonView}>
-              <Button danger style={stylesButton.button}>
+              <Button
+                danger
+                style={stylesButton.button}
+                onPress={() => this.props.navigation.navigate('UserLists')}
+              >
                 <Icon
                   name='ios-list-box'
                   style={stylesButton.buttonIcon}
