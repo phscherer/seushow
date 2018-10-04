@@ -13,6 +13,7 @@ import Profile from './containers/profile';
 import Search from './components/searchBar';
 import SearchDetails from './containers/searchDetails';
 import UserLists from './containers/userLists';
+import UserListsDetails from './containers/userListsDetails';
 
 export default createStackNavigator(
   {
@@ -52,6 +53,9 @@ export default createStackNavigator(
     },
     UserLists: {
       screen: UserLists,
+    },
+    UserListsDetails: {
+      screen: UserListsDetails,
     },
   },
   {
