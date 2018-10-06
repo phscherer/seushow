@@ -94,10 +94,18 @@ export default class Profile extends Component {
       });
   }
 
+  signOutUser = async () => {
+    try {
+      await firebase.auth().signOut();
+      this.props.navigation.navigate('Login');
+    } catch (e) {
+      console.log(e);
+    }
+  }
+
   render() {
     const {
       nome,
-      episodiosAssistidos,
       quantidadeShows,
       isLoading
     } = this.state;
@@ -116,8 +124,7 @@ export default class Profile extends Component {
             <View style={styles.headerContent}>
               <Image style={styles.avatar} source={userAvatar} />
               <Text style={styles.name}>{nome}</Text>
-              <Text style={styles.userInfo}>Episódios assistidos: {episodiosAssistidos}</Text>
-              <Text style={styles.userInfo}>Filmes na lista: {quantidadeShows}</Text>
+              <Text style={styles.userInfo}>Shows em listas: {quantidadeShows}</Text>
             </View>
           </View>
           <View style={styles.body}>
@@ -133,12 +140,16 @@ export default class Profile extends Component {
                 />
                 <Text style={{ fontSize: 14, color: 'white' }}>Listas</Text>
               </Button>
-              <Button danger style={stylesButton.button}>
+              <Button
+                danger
+                style={stylesButton.button}
+                onPress={this.signOutUser}
+              >
                 <Icon
-                  name='ios-contacts'
+                  name='ios-exit'
                   style={stylesButton.buttonIcon}
                 />
-                <Text style={{ fontSize: 14, color: 'white' }}>Amigos</Text>
+                <Text style={{ fontSize: 14, color: 'white' }}>Log-out</Text>
               </Button>
             </View>
           </View>
