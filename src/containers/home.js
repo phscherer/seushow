@@ -5,7 +5,7 @@ import DefaultHeader from '../components/defaultHeader';
 import MoviesList from './moviesList';
 import SeriesList from './seriesList';
 
-class Home extends Component {
+export default class Home extends Component {
   constructor(props) {
     super(props);
   }
@@ -38,5 +38,3 @@ class Home extends Component {
     );
   }
 }
-
-export default Home;

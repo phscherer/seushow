@@ -1,7 +1,13 @@
 import React, { Component } from 'react';
-import { View, FlatList, ActivityIndicator } from 'react-native';
-import ShowsItem from '../components/showsItem';
+import { View, FlatList, ActivityIndicator, Text } from 'react-native';
+import { Container } from 'native-base';
+import ListsItem from '../components/listsItem';
 import * as firebase from 'firebase';
+import b64 from 'base-64';
+import _ from 'lodash';
+import axios from 'axios';
+import { API_KEY } from '../actionTypes/app';
+import DefaultHeaderBack from '../components/defaultHeaderBack';
 
 export default class UserListsDetails extends Component {
   constructor(props) {
@@ -9,21 +15,44 @@ export default class UserListsDetails extends Component {
 
     this.state = {
       isLoading: true,
+      showsId: [],
       shows: [],
     };
     this.routeParams = props.navigation.state.params;
   }
 
   componentWillMount() {
-    const currentList = this.routeParams.currentList;
+    let user = firebase.auth().currentUser;
+    let emailBase64 = b64.encode(user.email);
+    let userValues = [], listShows = [];;
+    const { currentList, typeShow } = this.routeParams;
     firebase.database()
       .ref(`/users/${emailBase64}/${currentList}/`)
       .on('value', snapshot => {
-        const userValues = _.values(snapshot.val());
-        this.setState({
-          isLoading: false
-        });
+        userValues = _.values(snapshot.val());
       });
+    if (typeShow === 'serie') {
+      userValues.map((id) => {
+        let show = _.values(id);
+        axios.get(`https://api.themoviedb.org/3/tv/${show[0].showId}?api_key=${API_KEY}&language=pt-BR`)
+          .then((response) => {
+            this.state.shows.push(response.data);
+          })
+          .catch(() => console.log('Error getting list data!'));
+      });
+    }
+    if (typeShow === 'filme') {
+      userValues.map((id) => {
+        let show = _.values(id);
+        axios.get(`https://api.themoviedb.org/3/movie/${show[0].showId}?api_key=${API_KEY}&language=pt-BR`)
+          .then((response) => {
+            listShows.push(response.data);
+            this.setState({ shows: [...listShows] });
+          })
+          .catch(() => console.log('Error getting list data!'));
+      });
+    }
+    this.setState({ isLoading: false });
   }
 
   renderSeparator = () => {
@@ -39,8 +68,37 @@ export default class UserListsDetails extends Component {
     );
   }
 
+  normalizeCurrentList = (currentList, typeShow) => {
+    if (typeShow === 'serie') {
+      if (currentList === 'paraAssistir') {
+        return 'Séries à assistir';
+      }
+      if (currentList === 'ativas') {
+        return 'Séries ativas';
+      }
+      if (currentList === 'finalizadas') {
+        return 'Séries finalizadas';
+      }
+      if (currentList === 'favoritos') {
+        return 'Séries favoritas';
+      }
+    }
+    if (typeShow === 'filme') {
+      if (currentList === 'paraAssistir') {
+        return 'Filmes à assistir';
+      }
+      if (currentList === 'finalizadas') {
+        return 'Filmes finalizados';
+      }
+      if (currentList === 'favoritos') {
+        return 'Filmes favoritos';
+      }
+    }
+  }
+
   render() {
     const { shows, isLoading } = this.state;
+    const { currentList, typeShow } = this.routeParams;
     if (isLoading) {
       return (
         <View style={{ flex: 1, padding: 20 }}>
@@ -49,16 +107,30 @@ export default class UserListsDetails extends Component {
       );
     }
     return (
-      <View
-        containerStyle={{ borderTopWidth: 0, borderBottomWidth: 0 }}
-      >
-        <FlatList
-          data={shows.results}
-          keyExtractor={show => `show-${show.id}`}
-          ItemSeparatorComponent={this.renderSeparator}
-          renderItem={(show) => <ShowsItem tvShow={show} /> }
+      <Container>
+        <DefaultHeaderBack
+          title={this.normalizeCurrentList(currentList, typeShow)}
+          pageName={'UserLists'}
+          backSearchPage={'UserListsDetails'}
         />
-      </View>
+        <View
+          containerStyle={{ borderTopWidth: 0, borderBottomWidth: 0 }}
+        >
+          {
+            shows.length === 0 &&
+            <Text>Não há shows nessa lista.</Text>
+          }
+          {
+            shows.length > 0 &&
+            <FlatList
+              data={shows}
+              keyExtractor={show => `show-${show.id}`}
+              ItemSeparatorComponent={this.renderSeparator}
+              renderItem={(show) => <ListsItem tvShow={show} backPage={'UserListsDetails'} />}
+            />
+          }
+        </View>
+      </Container>
     );
   }
 }

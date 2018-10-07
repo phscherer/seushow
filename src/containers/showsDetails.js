@@ -92,7 +92,7 @@ class ShowsDetails extends Component {
 
     return (
       <Container>
-        <DefaultHeaderBack title={'TV Shows'} pageName={'Home'} backSearchPage={'ShowsDetails'} />
+        <DefaultHeaderBack title={'TV Shows'} pageName={this.routeParams.backPage} backSearchPage={'ShowsDetails'} />
         <View style={styles.containerItem}>
           <ParallaxScrollView
             backgroundColor="black"

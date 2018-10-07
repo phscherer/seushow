@@ -12,8 +12,7 @@ const styles = StyleSheet.create({
   }
 });
 
-const ShowsItem = ({ tvShow, navigation }) => {
-  let backPage = 'Home';
+const ListsItem = ({ tvShow, backPage, navigation }) => {
   const goToDetails = showItem => navigation.navigate('ShowsDetails', { showItem, backPage });
   const showName = tvShow.item.title === undefined ? tvShow.item.original_name : tvShow.item.title;
   const uriImagePath = `${IMAGE_PATH}${tvShow.item.poster_path}`;
@@ -29,4 +28,4 @@ const ShowsItem = ({ tvShow, navigation }) => {
   );
 };
 
-export default withNavigation(ShowsItem);
+export default withNavigation(ListsItem);

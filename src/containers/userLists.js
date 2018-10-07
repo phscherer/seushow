@@ -5,8 +5,8 @@ import {
 import DefaultHeaderBack from '../components/defaultHeaderBack';
 
 export default class UserLists extends Component {
-  goToPage = (currentList) => {
-    this.props.navigation.navigate('UserListsDetails', { currentList });
+  goToPage = (currentList, typeShow) => {
+    this.props.navigation.navigate('UserListsDetails', { currentList, typeShow });
   }
 
   render() {
@@ -17,7 +17,7 @@ export default class UserLists extends Component {
           <Separator bordered>
             <Text style={{ fontSize: 18, fontWeight: 'bold' }}>Seriados e Animes</Text>
           </Separator>
-          <ListItem icon button={true} onPress={() => this.goToPage('paraAssistir')}>
+          <ListItem icon button={true} onPress={() => this.goToPage('paraAssistir', 'serie')}>
             <Left>
               <Button style={{ backgroundColor: "#AB3737" }}>
                 <Icon active name="ios-bookmark" />
@@ -30,7 +30,7 @@ export default class UserLists extends Component {
               <Icon active name="arrow-forward" />
             </Right>
           </ListItem>
-          <ListItem icon button={true} onPress={() => this.goToPage('ativas')}>
+          <ListItem icon button={true} onPress={() => this.goToPage('ativas', 'serie')}>
             <Left>
               <Button style={{ backgroundColor: "#AB3737" }}>
                 <Icon active name="ios-calendar" />
@@ -43,7 +43,7 @@ export default class UserLists extends Component {
               <Icon active name="arrow-forward" />
             </Right>
           </ListItem>
-          <ListItem icon button={true} onPress={() => this.goToPage('finalizadas')}>
+          <ListItem icon button={true} onPress={() => this.goToPage('finalizadas', 'serie')}>
             <Left>
               <Button style={{ backgroundColor: "#AB3737" }}>
                 <Icon active name="ios-checkmark-circle" />
@@ -56,7 +56,7 @@ export default class UserLists extends Component {
               <Icon active name="arrow-forward" />
             </Right>
           </ListItem>
-          <ListItem icon button={true} onPress={() => this.goToPage('favoritos')}>
+          <ListItem icon button={true} onPress={() => this.goToPage('favoritos', 'serie')}>
             <Left>
               <Button style={{ backgroundColor: "#AB3737" }}>
                 <Icon active name="ios-heart" />
@@ -72,7 +72,7 @@ export default class UserLists extends Component {
           <Separator bordered>
             <Text style={{ fontSize: 18, fontWeight: 'bold' }}>Filmes</Text>
           </Separator>
-          <ListItem icon button={true} onPress={() => this.goToPage('paraAssistir')}>
+          <ListItem icon button={true} onPress={() => this.goToPage('paraAssistir', 'filme')}>
             <Left>
               <Button style={{ backgroundColor: "#AB3737" }}>
                 <Icon active name="ios-bookmark" />
@@ -85,7 +85,7 @@ export default class UserLists extends Component {
               <Icon active name="arrow-forward" />
             </Right>
           </ListItem>
-          <ListItem icon button={true} onPress={() => this.goToPage('finalizadas')}>
+          <ListItem icon button={true} onPress={() => this.goToPage('finalizadas', 'filme')}>
             <Left>
               <Button style={{ backgroundColor: "#AB3737" }}>
                 <Icon active name="ios-checkmark-circle" />
@@ -98,7 +98,7 @@ export default class UserLists extends Component {
               <Icon active name="arrow-forward" />
             </Right>
           </ListItem>
-          <ListItem icon button={true} onPress={() => this.goToPage('favoritos')}>
+          <ListItem icon button={true} onPress={() => this.goToPage('favoritos', 'filme')}>
             <Left>
               <Button style={{ backgroundColor: "#AB3737" }}>
                 <Icon active name="ios-heart" />
