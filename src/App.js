@@ -14,6 +14,7 @@ import Search from './components/searchBar';
 import SearchDetails from './containers/searchDetails';
 import UserLists from './containers/userLists';
 import UserListsDetails from './containers/userListsDetails';
+import Seasons from './components/seasons';
 
 export default createStackNavigator(
   {
@@ -56,6 +57,9 @@ export default createStackNavigator(
     },
     UserListsDetails: {
       screen: UserListsDetails,
+    },
+    Seasons: {
+      screen: Seasons,
     },
   },
   {

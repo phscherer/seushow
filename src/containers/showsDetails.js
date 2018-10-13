@@ -81,6 +81,10 @@ class ShowsDetails extends Component {
     );
   }
 
+  goToPage = (showId) => {
+    this.props.navigation.navigate('Seasons', { showId });
+  }
+
   render() {
     const { tvShow, isLoading } = this.state;
     if (isLoading) {
@@ -109,6 +113,7 @@ class ShowsDetails extends Component {
                 <Button
                   dark
                   style={buttonStyles.button}
+                  onPress={() => this.goToPage(tvShow.item.id)}
                 >
                   <Text style={{ color: 'white', fontWeight: 'bold', fontSize: 16 }}>Temporadas</Text>
                   <Icon name='ios-arrow-round-forward' />
