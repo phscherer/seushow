@@ -2,8 +2,11 @@ import React, { Component } from 'react';
 import { Text, Image, Dimensions, StyleSheet, View, ActivityIndicator } from 'react-native';
 import { Container, Header, Icon, Button, Title, Body, Left } from 'native-base';
 import ParallaxScrollView from 'react-native-parallax-scroll-view';
+import axios from 'axios';
+
 import CardItemBordered from '../components/cardItemBordered';
 import { showsDetails, cardButton } from '../styles/index';
+import { API_KEY } from '../actionTypes/app';
 
 import {
   IMAGE_PATH,
@@ -20,12 +23,20 @@ class SearchDetails extends Component {
   constructor(props) {
     super(props);
 
-    this.state = { isLoading: true };
+    this.state = { isLoading: true, genres: [] };
     this.routeParams = props.navigation.state.params;
   }
 
   componentWillMount() {
     const tvShow = this.routeParams.showItem;
+    const genresEspecifies = [];
+    tvShow.item.genre_ids.map((genreId) => {
+      axios.get(`https://api.themoviedb.org/3/genre/${genreId}?api_key=${API_KEY}&language=pt-BR`)
+        .then((response) => {
+          genresEspecifies.push(response.data);
+          this.setState({ genres: [...genresEspecifies] });
+        }).catch(() => console.log('Erro ao obter gênero!'));
+    });
     this.setState({
       tvShow,
       isLoading: false
@@ -74,6 +85,9 @@ class SearchDetails extends Component {
           {showName}
         </Text>
         <Text style={styles.sectionTitleText}>
+          Gêneros: { this.genresNormalized(this.state.genres) }
+        </Text>
+        <Text style={styles.sectionTitleText}>
           Média total: {tvShow.item.vote_average}
         </Text>
       </View>
@@ -83,6 +97,18 @@ class SearchDetails extends Component {
   goToPage = (showId) => {
     const backPage = 'SearchDetails';
     this.props.navigation.navigate('Seasons', { showId, backPage });
+  }
+
+  genresNormalized = (genres) => {
+    let names = '';
+    genres.forEach((genre) => {
+      if (names === '') {
+        names = genre.name;
+      } else {
+        names = `${names}, ${genre.name}`;
+      }
+    });
+    return names;
   }
 
   render() {

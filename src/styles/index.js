@@ -50,7 +50,7 @@ export const showsDetails = {
     alignItems: 'center',
     flex: 1,
     flexDirection: 'column',
-    paddingTop: 100,
+    paddingTop: 50,
   },
   avatar: {
     marginBottom: 10,
