@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import { View, FlatList, ActivityIndicator } from 'react-native';
+import { Container } from 'native-base';
 import axios from 'axios';
 import { API_KEY } from '../actionTypes/app';
 import SeasonsItem from './seasonsItem';
+import DefaultHeaderBack from '../components/defaultHeaderBack';
 
 class Seasons extends Component {
   constructor(props) {
@@ -45,16 +47,28 @@ class Seasons extends Component {
       );
     }
     return (
-      <View
-        containerStyle={{ borderTopWidth: 0, borderBottomWidth: 0 }}
-      >
-        <FlatList
-          data={seasons}
-          keyExtractor={season => `season-${season.id}`}
-          ItemSeparatorComponent={this.renderSeparator}
-          renderItem={(season) => <SeasonsItem seasonDetail={season} /> }
+      <Container>
+        <DefaultHeaderBack
+          title={'Temporadas'}
+          pageName={this.routeParams.backPage}
+          backSearchPage={'Seasons'}
         />
-      </View>
+        <View containerStyle={{ borderTopWidth: 0, borderBottomWidth: 0 }}>
+          {
+            seasons.length === 0 &&
+            <Text>Esse seriado ainda não possui temporadas.</Text>
+          }
+          {
+            seasons.length > 0 &&
+            <FlatList
+              data={seasons}
+              keyExtractor={season => `season-${season.id}`}
+              ItemSeparatorComponent={this.renderSeparator}
+              renderItem={(season) => <SeasonsItem seasonDetail={season} /> }
+            />
+          }
+        </View>
+      </Container>
     );
   }
 }

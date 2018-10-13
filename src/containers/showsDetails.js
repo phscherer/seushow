@@ -82,7 +82,8 @@ class ShowsDetails extends Component {
   }
 
   goToPage = (showId) => {
-    this.props.navigation.navigate('Seasons', { showId });
+    const backPage = 'ShowsDetails';
+    this.props.navigation.navigate('Seasons', { showId, backPage });
   }
 
   render() {

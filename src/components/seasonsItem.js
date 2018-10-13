@@ -1,8 +1,10 @@
 import React from 'react';
 import { StyleSheet } from 'react-native';
+import { Container } from 'native-base';
 import { ListItem } from 'react-native-elements';
 import { withNavigation } from 'react-navigation';
 import { IMAGE_PATH } from '../actionTypes/app';
+import DefaultHeaderBack from '../components/defaultHeaderBack';
 
 const styles = StyleSheet.create({
   item: {

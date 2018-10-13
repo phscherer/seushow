@@ -80,6 +80,11 @@ class SearchDetails extends Component {
     );
   }
 
+  goToPage = (showId) => {
+    const backPage = 'SearchDetails';
+    this.props.navigation.navigate('Seasons', { showId, backPage });
+  }
+
   render() {
     const { tvShow, isLoading } = this.state;
     if (isLoading) {
@@ -117,6 +122,7 @@ class SearchDetails extends Component {
                 <Button
                   dark
                   style={buttonStyles.button}
+                  onPress={() => this.goToPage(tvShow.item.id)}
                 >
                   <Text style={{ color: 'white', fontWeight: 'bold', fontSize: 16 }}>Temporadas</Text>
                   <Icon name='ios-arrow-round-forward' />
