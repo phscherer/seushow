@@ -3,7 +3,7 @@ import { Text, Image, Dimensions, StyleSheet, View, ActivityIndicator } from 're
 import { Container, Header, Icon, Button, Title, Body, Left } from 'native-base';
 import ParallaxScrollView from 'react-native-parallax-scroll-view';
 import CardItemBordered from '../components/cardItemBordered';
-import { showsDetails } from '../styles/index';
+import { showsDetails, cardButton } from '../styles/index';
 
 import {
   IMAGE_PATH,
@@ -14,6 +14,7 @@ import {
 
 const window = Dimensions.get('window');
 const styles = StyleSheet.create(showsDetails);
+const buttonStyles = StyleSheet.create(cardButton);
 
 class SearchDetails extends Component {
   constructor(props) {
@@ -110,6 +111,18 @@ class SearchDetails extends Component {
             renderStickyHeader={() => this.renderSticky(tvShow)}
             renderForeground={() => this.renderForeground(tvShow)}
           >
+            {
+              !tvShow.item.title &&
+              <View style={buttonStyles.buttonView}>
+                <Button
+                  dark
+                  style={buttonStyles.button}
+                >
+                  <Text style={{ color: 'white', fontWeight: 'bold', fontSize: 16 }}>Temporadas</Text>
+                  <Icon name='ios-arrow-round-forward' />
+                </Button>
+              </View>
+            }
             <CardItemBordered show={tvShow.item} />
           </ParallaxScrollView>
         </View>
