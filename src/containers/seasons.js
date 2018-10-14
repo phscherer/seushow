@@ -3,7 +3,7 @@ import { View, FlatList, ActivityIndicator } from 'react-native';
 import { Container } from 'native-base';
 import axios from 'axios';
 import { API_KEY } from '../actionTypes/app';
-import SeasonsItem from './seasonsItem';
+import SeasonsItem from '../components/seasonsItem'
 import DefaultHeaderBack from '../components/defaultHeaderBack';
 
 class Seasons extends Component {
@@ -64,7 +64,7 @@ class Seasons extends Component {
               data={seasons}
               keyExtractor={season => `season-${season.id}`}
               ItemSeparatorComponent={this.renderSeparator}
-              renderItem={(season) => <SeasonsItem seasonDetail={season} /> }
+              renderItem={(season) => <SeasonsItem seasonDetail={season} showId={this.routeParams.showId} /> }
             />
           }
         </View>

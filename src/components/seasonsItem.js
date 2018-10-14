@@ -1,10 +1,8 @@
 import React from 'react';
 import { StyleSheet } from 'react-native';
-import { Container } from 'native-base';
 import { ListItem } from 'react-native-elements';
 import { withNavigation } from 'react-navigation';
 import { IMAGE_PATH } from '../actionTypes/app';
-import DefaultHeaderBack from '../components/defaultHeaderBack';
 
 const styles = StyleSheet.create({
   item: {
@@ -14,8 +12,8 @@ const styles = StyleSheet.create({
   }
 });
 
-const SeasonsItem = ({ seasonDetail, navigation }) => {
-  const goToDetails = seasonItem => navigation.navigate('ShowsDetails', { seasonItem });
+const SeasonsItem = ({ seasonDetail, showId, navigation }) => {
+  const goToDetails = (seasonItem, showId) => navigation.navigate('Episodes', { seasonItem, showId });
   const uriImagePath = `${IMAGE_PATH}${seasonDetail.item.poster_path}`;
   return (
     <ListItem
@@ -24,7 +22,7 @@ const SeasonsItem = ({ seasonDetail, navigation }) => {
       subtitle={`Total de episódios: ${seasonDetail.item.episode_count}`}
       avatar={{ uri: uriImagePath }}
       containerStyle={styles.item}
-      onPress={() => goToDetails(seasonDetail)}
+      onPress={() => goToDetails(seasonDetail, showId)}
     />
   );
 };
