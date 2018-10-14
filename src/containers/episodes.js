@@ -3,6 +3,7 @@ import { View, StyleSheet, ActivityIndicator, ScrollView } from 'react-native';
 import { List, ListItem } from 'react-native-elements';
 import { Container } from 'native-base';
 import axios from 'axios';
+import _ from 'lodash';
 import { API_KEY, IMAGE_PATH } from '../actionTypes/app';
 import DefaultHeaderBack from '../components/defaultHeaderBack';
 
@@ -21,6 +22,7 @@ export default class Episodes extends Component {
     this.state = {
       isLoading: true,
       episodes: [],
+      touchableIcons: [],
     };
     this.routeParams = props.navigation.state.params;
   }
@@ -34,9 +36,21 @@ export default class Episodes extends Component {
       }).catch(() => console.log(`Erro ao obter os episódios da temporada ${this.routeParams.seasonItem.season_number}!`));
   }
 
+  toggleIcon = (itemIndex) => {
+    if (this.state.touchableIcons.includes(itemIndex)) {
+      _.pull(this.state.touchableIcons, itemIndex);
+    } else {
+      this.state.touchableIcons.push(itemIndex);
+    }
+    this.setState({ touchableIcons: [ ...this.state.touchableIcons ] });
+  }
+
   render() {
-    const { episodes, isLoading } = this.state;
-    console.log('ep ', episodes);
+    const {
+      episodes,
+      isLoading,
+      touchableIcons
+    } = this.state;
     if (isLoading) {
       return (
         <View style={{ flex: 1, padding: 20 }}>
@@ -54,15 +68,19 @@ export default class Episodes extends Component {
         <View containerStyle={{ borderTopWidth: 0, borderBottomWidth: 0 }}>
           <ScrollView>
             {
-              episodes.episodes.map((episode) => (
+              episodes.episodes.map((episode, i) => (
                 <ListItem
                   roundAvatar
-                  key={episode.id}
+                  key={i}
                   title={`${episode.episode_number} - ${episode.name}`}
                   subtitle={episode.overview}
                   avatar={{ uri: `${IMAGE_PATH}${episode.still_path}` }}
                   containerStyle={styles.item}
-                  rightIcon={{ name: 'check-circle' }}
+                  rightIcon={{
+                    name: 'check-circle',
+                    color: touchableIcons.includes(i) ? 'green' : 'gray'
+                  }}
+                  onPress={() => this.toggleIcon(i)}
                 />
               ))
             }
