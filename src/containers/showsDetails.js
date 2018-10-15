@@ -31,7 +31,15 @@ class ShowsDetails extends Component {
   componentWillMount() {
     const tvShow = this.routeParams.showItem;
     const genresEspecifies = [];
-    tvShow.item.genre_ids.map((genreId) => {
+    const genresNormalized = [];
+    if (this.routeParams.backPage === 'UserListsDetails') {
+      tvShow.item.genres.map((genre) => {
+        genresNormalized.push(genre.id);
+      });
+    } else {
+      genresNormalized.push(tvShow.item.genre_ids);
+    }
+    genresNormalized.map((genreId) => {
       axios.get(`https://api.themoviedb.org/3/genre/${genreId}?api_key=${API_KEY}&language=pt-BR`)
         .then((response) => {
           genresEspecifies.push(response.data);
