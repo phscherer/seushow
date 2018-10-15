@@ -123,7 +123,7 @@ export default class UserListsDetails extends Component {
           {
             shows.length > 0 &&
             <FlatList
-              data={shows}
+              data={shows.results}
               keyExtractor={show => `show-${show.id}`}
               ItemSeparatorComponent={this.renderSeparator}
               renderItem={(show) => <ListsItem tvShow={show} backPage={'UserListsDetails'} />}
