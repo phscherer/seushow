@@ -17,9 +17,6 @@ const DefaultHeader = ({ titlePage, backSearchPage, navigation }) => {
         <Button transparent onPress={() => navigation.navigate('Search', { backSearchPage })}>
           <Icon type='EvilIcons' name='search' />
         </Button>
-        <Button transparent>
-          <Icon type='EvilIcons' name='navicon' />
-        </Button>
       </Right>
     </Header>
   );
