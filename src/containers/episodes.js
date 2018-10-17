@@ -4,6 +4,8 @@ import { List, ListItem } from 'react-native-elements';
 import { Container } from 'native-base';
 import axios from 'axios';
 import _ from 'lodash';
+import * as firebase from 'firebase';
+import b64 from 'base-64';
 import { API_KEY, IMAGE_PATH } from '../actionTypes/app';
 import DefaultHeaderBack from '../components/defaultHeaderBack';
 
@@ -36,11 +38,39 @@ export default class Episodes extends Component {
       }).catch(() => console.log(`Erro ao obter os episódios da temporada ${this.routeParams.seasonItem.season_number}!`));
   }
 
-  toggleIcon = (itemIndex) => {
-    if (this.state.touchableIcons.includes(itemIndex)) {
-      _.pull(this.state.touchableIcons, itemIndex);
+  componentDidMount() {
+    let user = firebase.auth().currentUser;
+    let emailBase64 = b64.encode(user.email);
+    firebase.database()
+      .ref(`/users/${emailBase64}/epsAssistidos/`)
+      .on('value', snapshot => {
+        const episodesId = _.values(snapshot.val());
+        episodesId.map((episode) => {
+          _.values(episode).map((episodeNormalized) => {
+            this.state.touchableIcons.push(episodeNormalized.episodeId);
+          });
+        });
+      });
+    this.setState({ touchableIcons: [ ...this.state.touchableIcons ] });
+  }
+
+  toggleIcon = (episode, itemIndex) => {
+    let user = firebase.auth().currentUser;
+    let emailBase64 = b64.encode(user.email);
+    if (this.state.touchableIcons.includes(episode.id)) {
+      _.pull(this.state.touchableIcons, episode.id);
+      firebase.database()
+        .ref(`/users/${emailBase64}/epsAssistidos/${episode.id}`)
+        .remove()
+        .then(() => console.log(`Deletou episódio ${episode.id} com sucesso!`))
+        .catch(() => console.log('Failed to delete episode.'));
     } else {
-      this.state.touchableIcons.push(itemIndex);
+      this.state.touchableIcons.push(episode.id);
+      firebase.database()
+        .ref(`/users/${emailBase64}/epsAssistidos/${episode.id}`)
+        .push({ episodeId: episode.id })
+        .then(() => console.log('Success to add episode!'))
+        .catch(error => this.setState({ errorMessage: error.message }));
     }
     this.setState({ touchableIcons: [ ...this.state.touchableIcons ] });
   }
@@ -71,16 +101,16 @@ export default class Episodes extends Component {
               episodes.episodes.map((episode, i) => (
                 <ListItem
                   roundAvatar
-                  key={i}
+                  key={episode.id}
                   title={`${episode.episode_number} - ${episode.name}`}
                   subtitle={episode.overview}
                   avatar={{ uri: `${IMAGE_PATH}${episode.still_path}` }}
                   containerStyle={styles.item}
                   rightIcon={{
                     name: 'check-circle',
-                    color: touchableIcons.includes(i) ? 'green' : 'gray'
+                    color: touchableIcons.includes(episode.id) ? 'green' : 'gray'
                   }}
-                  onPress={() => this.toggleIcon(i)}
+                  onPress={() => this.toggleIcon(episode, i)}
                 />
               ))
             }
