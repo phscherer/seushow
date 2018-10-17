@@ -126,7 +126,7 @@ export default class UserListsDetails extends Component {
               data={shows}
               keyExtractor={show => `show-${show.id}`}
               ItemSeparatorComponent={this.renderSeparator}
-              renderItem={(show) => <ListsItem tvShow={show} backPage={'UserListsDetails'} />}
+              renderItem={(show) => <ListsItem tvShow={show} backPage={'UserLists'} />}
             />
           }
         </View>

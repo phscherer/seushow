@@ -32,7 +32,7 @@ class ShowsDetails extends Component {
     const tvShow = this.routeParams.showItem;
     const genresEspecifies = [];
     const genresNormalized = [];
-    if (this.routeParams.backPage === 'UserListsDetails') {
+    if (this.routeParams.backPage === 'UserLists') {
       tvShow.item.genres.map((genre) => {
         genresNormalized.push(genre.id);
       });
@@ -132,7 +132,11 @@ class ShowsDetails extends Component {
 
     return (
       <Container>
-        <DefaultHeaderBack title={'TV Shows'} pageName={this.routeParams.backPage} backSearchPage={'ShowsDetails'} />
+        <DefaultHeaderBack
+          title={'TV Shows'}
+          pageName={this.routeParams.backPage}
+          backSearchPage={'ShowsDetails'}
+        />
         <View style={styles.containerItem}>
           <ParallaxScrollView
             backgroundColor="black"
