@@ -71,27 +71,27 @@ export default class UserListsDetails extends Component {
   normalizeCurrentList = (currentList, typeShow) => {
     if (typeShow === 'serie') {
       if (currentList === 'paraAssistir') {
-        return 'Séries à assistir';
+        return 'Para assistir';
       }
       if (currentList === 'ativas') {
         return 'Séries ativas';
       }
       if (currentList === 'finalizadas') {
-        return 'Séries finalizadas';
+        return 'Finalizadas';
       }
       if (currentList === 'favoritos') {
-        return 'Séries favoritas';
+        return 'Favoritas';
       }
     }
     if (typeShow === 'filme') {
       if (currentList === 'paraAssistir') {
-        return 'Filmes à assistir';
+        return 'Para assistir';
       }
-      if (currentList === 'finalizadas') {
-        return 'Filmes finalizados';
+      if (currentList === 'filmesAssistidos') {
+        return 'Finalizados';
       }
       if (currentList === 'favoritos') {
-        return 'Filmes favoritos';
+        return 'Favoritos';
       }
     }
   }

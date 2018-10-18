@@ -85,14 +85,14 @@ export default class UserLists extends Component {
               <Icon active name="arrow-forward" />
             </Right>
           </ListItem>
-          <ListItem icon button={true} onPress={() => this.goToPage('finalizadas', 'filme')}>
+          <ListItem icon button={true} onPress={() => this.goToPage('filmesAssistidos', 'filme')}>
             <Left>
               <Button style={{ backgroundColor: "#AB3737" }}>
                 <Icon active name="ios-checkmark-circle" />
               </Button>
             </Left>
             <Body>
-              <Text>Finalizadas</Text>
+              <Text>Finalizados</Text>
             </Body>
             <Right>
               <Icon active name="arrow-forward" />
