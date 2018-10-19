@@ -12,4 +12,6 @@ firebase.initializeApp({
   messagingSenderId: "922970501074"
 });
 
+console.disableYellowBox = true;
+
 AppRegistry.registerComponent(appName, () => App);
