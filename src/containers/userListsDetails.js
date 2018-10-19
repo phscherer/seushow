@@ -36,7 +36,8 @@ export default class UserListsDetails extends Component {
         let show = _.values(id);
         axios.get(`https://api.themoviedb.org/3/tv/${show[0].showId}?api_key=${API_KEY}&language=pt-BR`)
           .then((response) => {
-            this.state.shows.push(response.data);
+            listShows.push(response.data);
+            this.setState({ shows: [...listShows] });
           })
           .catch(() => console.log('Error getting list data!'));
       });
