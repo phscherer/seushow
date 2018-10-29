@@ -11,3 +11,4 @@ App for fans of movies and television series.
 
 ## Technologies
 * [React-native](https://github.com/facebook/react-native)
+* [Firebase](https://firebase.google.com)
