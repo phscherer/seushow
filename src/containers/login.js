@@ -18,9 +18,6 @@ const styles = StyleSheet.create({
   avatar: {
     width: 150,
     height: 150,
-    borderRadius: 73,
-    borderWidth: 4,
-    borderColor: 'black',
     marginBottom: 10,
   },
   headerContent: {
@@ -83,7 +80,6 @@ export default class Login extends Component {
           <Form>
             <View style={styles.headerContent}>
               <Image style={styles.avatar} source={seuShowLogo} />
-              <Text>Seu Show</Text>
             </View>
             <View>
               { this.state.errorMessage &&
