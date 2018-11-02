@@ -38,8 +38,7 @@
     "babel-jest": "23.4.2",
     "babel-preset-react-native": "2.1.0",
     "jest": "23.4.2",
-    "react-test-renderer": "16.4.1",
-    "merge": ">=1.2.1"
+    "react-test-renderer": "16.4.1"
   },
   "jest": {
     "preset": "react-native"
