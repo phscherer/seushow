@@ -1,5 +1,5 @@
 # Seu Show! (Work in progress)
-App for fans of movies and television series.
+App for movie and series fans.
 
 ## Build and Run
 
